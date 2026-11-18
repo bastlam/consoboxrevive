@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/essencebox_layout" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:layout_width="wrap_content" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nombrekm" />
+            <EditText android:textSize="12.0dp" android:id="@id/essencebox_km" android:layout_width="110.0dp" android:layout_height="40.0dp" android:text="" android:inputType="numberDecimal" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/prixaulitre" />
+            <EditText android:textSize="12.0dp" android:id="@id/essencebox_prix" android:layout_width="110.0dp" android:layout_height="40.0dp" android:text="" android:numeric="decimal" android:inputType="numberDecimal" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nombrelitre" />
+            <EditText android:textSize="12.0dp" android:id="@id/essencebox_litre" android:layout_width="110.0dp" android:layout_height="40.0dp" android:text="" android:numeric="decimal" android:inputType="numberDecimal" />
+            <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dp">
+                <TextView android:layout_gravity="center_vertical" android:id="@id/essencebox_date" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="21/10/10" />
+                <ImageButton android:id="@id/essencebox_datebutton" android:background="@android:color/transparent" android:padding="5.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/cal" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <CheckBox android:id="@id/essence_box_partiel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/pleinpartiel" />
+    <CheckBox android:id="@id/essencebox_kmrelatif" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/kmcompteur" />
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button android:id="@id/essencebox_ok" android:layout_width="wrap_content" android:layout_height="40.0dp" android:text="@string/ajouter" />
+        <Button android:id="@id/essencebox_annuler" android:layout_width="wrap_content" android:layout_height="40.0dp" android:text="@string/cancel" android:layout_alignParentRight="true" />
+    </RelativeLayout>
+</LinearLayout>

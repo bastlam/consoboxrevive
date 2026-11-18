@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="vpi__background_holo_dark">#ff000000</color>
+    <color name="vpi__background_holo_light">#fff3f3f3</color>
+    <color name="vpi__bright_foreground_holo_dark">@color/vpi__background_holo_light</color>
+    <color name="vpi__bright_foreground_holo_light">@color/vpi__background_holo_dark</color>
+    <color name="vpi__bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
+    <color name="vpi__bright_foreground_disabled_holo_light">#ffb2b2b2</color>
+    <color name="vpi__bright_foreground_inverse_holo_dark">@color/vpi__bright_foreground_holo_light</color>
+    <color name="vpi__bright_foreground_inverse_holo_light">@color/vpi__bright_foreground_holo_dark</color>
+    <color name="default_circle_indicator_fill_color">#ffffffff</color>
+    <color name="default_circle_indicator_page_color">#00000000</color>
+    <color name="default_circle_indicator_stroke_color">#ffdddddd</color>
+    <color name="default_title_indicator_footer_color">#ff6899ff</color>
+    <color name="default_title_indicator_selected_color">#ffffffff</color>
+    <color name="default_title_indicator_text_color">#bbffffff</color>
+    <color name="Classe_A">#22cc22</color>
+    <color name="Classe_B">#228822</color>
+    <color name="Classe_C">#445544</color>
+    <color name="Classe_D">#dddd00</color>
+    <color name="Classe_E">#ffaa00</color>
+    <color name="Classe_F">#ff3300</color>
+    <color name="Classe_G">#ff0000</color>
+    <color name="graph_conso">#ff097286</color>
+    <color name="graph_prix">#ff724109</color>
+    <color name="graph_plein">#ff417209</color>
+    <color name="gris">#ffaaaaaa</color>
+    <color name="bad">#dd0000</color>
+    <color name="good">#00dd00</color>
+</resources>

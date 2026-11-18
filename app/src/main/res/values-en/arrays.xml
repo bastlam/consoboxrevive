@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type_of_vehicule">
+        <item>Gasoline</item>
+        <item>Diesel</item>
+        <item>LPG</item>
+        <item>Ethanol</item>
+    </string-array>
+    <string-array name="noms">
+        <item>Oil filter</item>
+        <item>Engine air filter</item>
+        <item>Fuel filter</item>
+        <item>Oil change</item>
+        <item>Brake fluid</item>
+        <item>Timing belt</item>
+        <item>replacement of Spark plugs</item>
+        <item>Brake pad</item>
+        <item>Gearbox</item>
+        <item>Collant</item>
+        <item>Cabin air filter</item>
+        <item>roadworthiness</item>
+        <item>Tires monitoring</item>
+    </string-array>
+    <string-array name="menustats">
+        <item>Global statistics</item>
+        <item>Charts</item>
+        <item>Send CSV consumption via mail</item>
+        <item>Export CSV consumption</item>
+    </string-array>
+    <string-array name="mois">
+        <item>January</item>
+        <item>Febuary</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>december</item>
+    </string-array>
+    <string-array name="parties">
+        <item>Filters</item>
+        <item>Drain</item>
+        <item>Ignition system</item>
+        <item>Braking</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="defaut">
+        <item>10000</item>
+        <item>8</item>
+        <item>7500</item>
+        <item>8</item>
+        <item>20000</item>
+        <item>0</item>
+        <item>20000</item>
+        <item>0</item>
+        <item>50000</item>
+        <item>36</item>
+        <item>20000</item>
+        <item>24</item>
+        <item>10000</item>
+        <item>12</item>
+        <item>10000</item>
+        <item>12</item>
+        <item>40000</item>
+        <item>24</item>
+        <item>40000</item>
+        <item>24</item>
+        <item>90000</item>
+        <item>60</item>
+        <item>70000</item>
+        <item>60</item>
+        <item>20000</item>
+        <item>0</item>
+        <item>40000</item>
+        <item>0</item>
+        <item>40000</item>
+        <item>0</item>
+        <item>40000</item>
+        <item>0</item>
+        <item>30000</item>
+        <item>24</item>
+        <item>30000</item>
+        <item>24</item>
+        <item>30000</item>
+        <item>24</item>
+        <item>30000</item>
+        <item>24</item>
+        <item>15000</item>
+        <item>24</item>
+        <item>15000</item>
+        <item>24</item>
+        <item>0</item>
+        <item>24</item>
+        <item>0</item>
+        <item>24</item>
+        <item>10000</item>
+        <item>0</item>
+        <item>10000</item>
+        <item>0</item>
+    </string-array>
+    <string-array name="type_depenses">
+        <item>Fuel</item>
+        <item>Maintenance</item>
+        <item>Repair</item>
+    </string-array>
+</resources>

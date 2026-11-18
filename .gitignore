@@ -1,0 +1,15 @@
+.gradle/
+build/
+*/build/
+local.properties
+.idea/
+*.iml
+# signing secrets: keep a private backup of these two files!
+keystore.properties
+*.jks
+# reverse-engineering workspace & tools
+work/
+tools/
+# APK binaries (original and builds)
+*.apk
+.mcp.json

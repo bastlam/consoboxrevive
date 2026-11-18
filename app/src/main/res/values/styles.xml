@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base app theme: dark Material, as the original UI was designed for a dark background. -->
+    <style name="Theme.ConsoBox.Base" parent="@android:style/Theme.Material" />
+    <style name="Theme.ConsoBox" parent="@style/Theme.ConsoBox.Base" />
+    <style name="Theme.ConsoBox.NoActionBar" parent="@style/Theme.ConsoBox">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="Theme.ConsoBox.Dialog" parent="@android:style/Theme.Material.Dialog" />
+    <style name="Theme.PageIndicatorDefaults" parent="@style/Theme.ConsoBox">
+                        <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
+        <item name="vpiTabTextStyle">@style/Widget.TabPageIndicator.Text</item>
+    </style>
+    <style name="Widget" />
+    <style name="Widget.TabPageIndicator" parent="@style/Widget">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:background">@drawable/vpi__tab_indicator</item>
+        <item name="android:paddingLeft">22.0dp</item>
+        <item name="android:paddingTop">12.0dp</item>
+        <item name="android:paddingRight">22.0dp</item>
+        <item name="android:paddingBottom">12.0dp</item>
+    </style>
+    <style name="Widget.TabPageIndicator.Text" parent="@style/Widget">
+        <item name="android:textAppearance">@style/TextAppearance.TabPageIndicator</item>
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/vpi__dark_theme</item>
+        <item name="android:maxLines">1</item>
+    </style>
+    <style name="TextAppearance.TabPageIndicator" parent="@style/Widget" />
+    <style name="Animations" />
+    <style name="Animations.Popup" parent="@style/Animations">
+        <item name="android:windowEnterAnimation">@anim/popup_appear</item>
+        <item name="android:windowExitAnimation">@anim/popup_disappear</item>
+    </style>
+</resources>

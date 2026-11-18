@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type_of_vehicule">
+        <item>Essence</item>
+        <item>Diesel</item>
+        <item>GPL</item>
+        <item>Ethanol</item>
+    </string-array>
+    <string-array name="noms">
+        <item>Changement filtre à huile</item>
+        <item>Changement filtre à air</item>
+        <item>Changement filtre à carburant</item>
+        <item>Huile</item>
+        <item>Liquide de freins</item>
+        <item>Courroie de distribution</item>
+        <item>Remplacement des bougies</item>
+        <item>Changement des plaquettes</item>
+        <item>Boite de vitesse</item>
+        <item>Liquide de refroidissement</item>
+        <item>Changement filtre à pollen</item>
+        <item>Contrôle technique</item>
+        <item>Contrôle des pneumatiques</item>
+    </string-array>
+    <string-array name="menustats">
+        <item>Statistiques générales</item>
+        <item>Graphiques</item>
+        <item>Consommation CSV par mail</item>
+        <item>Exporter la consommation en CSV</item>
+    </string-array>
+    <string-array name="mois">
+        <item>Janvier</item>
+        <item>Fevrier</item>
+        <item>Mars</item>
+        <item>Avril</item>
+        <item>Mai</item>
+        <item>Juin</item>
+        <item>Juillet</item>
+        <item>Aout</item>
+        <item>Septembre</item>
+        <item>Octobre</item>
+        <item>Novembre</item>
+        <item>decembre</item>
+    </string-array>
+    <string-array name="parties">
+        <item>Filtration</item>
+        <item>Vidanges</item>
+        <item>Allumage</item>
+        <item>Freinage</item>
+        <item>Divers</item>
+    </string-array>
+    <string-array name="defaut">
+        <item>10000</item>
+        <item>8</item>
+        <item>7500</item>
+        <item>8</item>
+        <item>20000</item>
+        <item>0</item>
+        <item>20000</item>
+        <item>0</item>
+        <item>50000</item>
+        <item>36</item>
+        <item>20000</item>
+        <item>24</item>
+        <item>10000</item>
+        <item>12</item>
+        <item>10000</item>
+        <item>12</item>
+        <item>40000</item>
+        <item>24</item>
+        <item>40000</item>
+        <item>24</item>
+        <item>90000</item>
+        <item>60</item>
+        <item>70000</item>
+        <item>60</item>
+        <item>20000</item>
+        <item>0</item>
+        <item>40000</item>
+        <item>0</item>
+        <item>40000</item>
+        <item>0</item>
+        <item>40000</item>
+        <item>0</item>
+        <item>30000</item>
+        <item>24</item>
+        <item>30000</item>
+        <item>24</item>
+        <item>30000</item>
+        <item>24</item>
+        <item>30000</item>
+        <item>24</item>
+        <item>15000</item>
+        <item>24</item>
+        <item>15000</item>
+        <item>24</item>
+        <item>0</item>
+        <item>24</item>
+        <item>0</item>
+        <item>24</item>
+        <item>10000</item>
+        <item>0</item>
+        <item>10000</item>
+        <item>0</item>
+    </string-array>
+    <string-array name="type_depenses">
+        <item>Carburant</item>
+        <item>Frais entretien</item>
+        <item>Réparations</item>
+    </string-array>
+</resources>

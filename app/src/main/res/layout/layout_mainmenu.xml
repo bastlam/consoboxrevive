@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:background="@android:color/black" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <GridView android:gravity="top" android:orientation="horizontal" android:id="@id/mainmenu_accesrapide" android:background="@android:drawable/title_bar" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:numColumns="3" />
+    <GridView android:gravity="center" android:orientation="horizontal" android:id="@id/mainmenu_grid" android:background="@android:color/black" android:layout_width="match_parent" android:layout_height="match_parent" android:numColumns="2" android:layout_below="@id/mainmenu_accesrapide" />
+    <include layout="@layout/ads" />
+</RelativeLayout>

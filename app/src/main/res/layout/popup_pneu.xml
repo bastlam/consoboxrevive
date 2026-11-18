@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:id="@id/description" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:id="@id/largeur" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:id="@id/hauteur" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:id="@id/diametre" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:id="@id/indicepoids" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:id="@id/indicevitesse" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <Button android:id="@id/changer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Changer de pneus" />
+    </LinearLayout>
+</LinearLayout>

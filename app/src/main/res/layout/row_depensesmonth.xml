@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="horizontal" android:id="@id/depensesmonth" android:layout_width="match_parent" android:layout_height="20.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_width="220.0dp" android:layout_height="match_parent" android:src="@drawable/month" android:scaleType="fitXY" android:layout_alignParentLeft="true" />
+    <TextView android:textSize="15.0dp" android:textStyle="bold" android:textColor="#fff" android:id="@id/type" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="25.0dp" android:text="eJee" android:layout_centerVertical="true" />
+    <TextView android:textSize="15.0dp" android:textColor="#fff" android:id="@id/prix" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="25.0dp" android:text="eJee" android:layout_toRightOf="@id/type" android:layout_centerVertical="true" />
+</RelativeLayout>

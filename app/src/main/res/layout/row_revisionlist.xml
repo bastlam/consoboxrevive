@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:paddingTop="4.0dp" android:paddingBottom="6.0dp" android:layout_width="match_parent" android:layout_height="50.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/revisionlistrow_icon" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginRight="6.0dp" android:src="@drawable/pompe" />
+    <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="match_parent">
+        <TextView android:textStyle="bold" android:id="@id/revisionlistrow_nom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nom" />
+        <RelativeLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="match_parent">
+            <TextView android:id="@id/revisionlistrow_temps" android:paddingLeft="15.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" android:text="Temps" />
+            <TextView android:textStyle="bold" android:id="@id/revisionlistrow_average" android:paddingLeft="15.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" android:text="" android:layout_alignParentRight="true" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_channel_revision">Rappels de révision</string>
+    <string name="notif_channel_backup">Sauvegarde Google Drive</string>
+    <string name="notif_revision_title">Rappel de révision</string>
+    <string name="notif_revision_text">Révision à effectuer sur %1$s</string>
+
+    <string name="local_backup_category">Sauvegarde sur l\'appareil</string>
+    <string name="export_file">Exporter vers un fichier…</string>
+    <string name="export_file_summary">Choisir où enregistrer une copie de la base (carte SD, Téléchargements, Drive…)</string>
+    <string name="import_file">Restaurer depuis un fichier…</string>
+    <string name="import_file_summary">Importer un fichier .bak (ex. consobox.bak de l\'ancienne version)</string>
+    <string name="export_ok">Sauvegarde exportée</string>
+    <string name="import_confirm">Les données actuelles vont être remplacées par le contenu de la sauvegarde. Continuer ?</string>
+    <string name="invalid_backup">Ce fichier n\'est pas une sauvegarde ConsoBox valide</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+
+    <string name="drive_category">Sauvegarde Google Drive</string>
+    <string name="drive_account">Compte Google</string>
+    <string name="drive_account_none">Non connecté – toucher pour se connecter</string>
+    <string name="drive_account_connected">Connecté : %1$s (toucher pour déconnecter)</string>
+    <string name="drive_disconnect_confirm">Déconnecter le compte Google ? La sauvegarde automatique sera désactivée.</string>
+    <string name="drive_auto">Sauvegarde automatique mensuelle</string>
+    <string name="drive_auto_summary">Sauvegarder la base sur Google Drive une fois par mois</string>
+    <string name="drive_backup_now">Sauvegarder sur Drive maintenant</string>
+    <string name="drive_restore">Restaurer depuis Drive…</string>
+    <string name="drive_restore_summary">Choisir une sauvegarde du dossier ConsoBox de votre Drive</string>
+    <string name="drive_last_backup">Dernière sauvegarde Drive : %1$s</string>
+    <string name="drive_never">Aucune sauvegarde Drive pour l\'instant</string>
+    <string name="drive_in_progress">Veuillez patienter…</string>
+    <string name="drive_backup_ok">Sauvegarde envoyée sur Google Drive</string>
+    <string name="drive_error">Erreur Google Drive : %1$s</string>
+    <string name="drive_no_backup">Aucune sauvegarde trouvée sur Google Drive</string>
+    <string name="drive_auth_failed">Autorisation Google refusée ou annulée</string>
+    <string name="drive_auth_needed_title">Sauvegarde ConsoBox</string>
+    <string name="drive_auth_needed_text">La sauvegarde Google Drive doit être ré-autorisée. Ouvrez ConsoBox &gt; Paramètres.</string>
+    <string name="drive_auto_failed_text">Échec de la sauvegarde automatique Google Drive : %1$s</string>
+    <string name="maps_missing">Aucune application de cartographie trouvée</string>
+</resources>

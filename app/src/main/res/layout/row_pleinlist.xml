@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:paddingTop="4.0dp" android:paddingBottom="6.0dp" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/icon" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginRight="6.0dp" android:src="@drawable/pompe" />
+    <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="match_parent">
+        <TextView android:textStyle="bold" android:id="@id/kmlistrow_date" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:id="@id/kmlistrow_vol" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" />
+            <TextView android:id="@id/kmlistrow_km" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" />
+            <TextView android:id="@id/kmlistrow_conso" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:id="@id/kmlistrow_prix" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="5.0dp" />
+            <TextView android:id="@id/kmlistrow_prixtotal" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

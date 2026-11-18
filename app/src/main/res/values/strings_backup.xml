@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_channel_revision">Maintenance reminders</string>
+    <string name="notif_channel_backup">Google Drive backup</string>
+    <string name="notif_revision_title">Maintenance reminder</string>
+    <string name="notif_revision_text">Maintenance due on %1$s</string>
+
+    <string name="local_backup_category">Backup on this device</string>
+    <string name="export_file">Export to a file…</string>
+    <string name="export_file_summary">Choose where to save a copy of the database (SD card, Downloads, Drive…)</string>
+    <string name="import_file">Restore from a file…</string>
+    <string name="import_file_summary">Import a .bak file (e.g. consobox.bak from the previous version)</string>
+    <string name="export_ok">Backup exported</string>
+    <string name="import_confirm">The current data will be replaced by the content of the backup. Continue?</string>
+    <string name="invalid_backup">This file is not a valid ConsoBox backup</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="drive_category">Google Drive backup</string>
+    <string name="drive_account">Google account</string>
+    <string name="drive_account_none">Not connected – tap to connect</string>
+    <string name="drive_account_connected">Connected: %1$s (tap to disconnect)</string>
+    <string name="drive_disconnect_confirm">Disconnect the Google account? The automatic backup will be disabled.</string>
+    <string name="drive_auto">Monthly automatic backup</string>
+    <string name="drive_auto_summary">Back up the database to Google Drive once a month</string>
+    <string name="drive_backup_now">Back up to Drive now</string>
+    <string name="drive_restore">Restore from Drive…</string>
+    <string name="drive_restore_summary">Choose a backup stored in the ConsoBox folder of your Drive</string>
+    <string name="drive_last_backup">Last Drive backup: %1$s</string>
+    <string name="drive_never">No Drive backup yet</string>
+    <string name="drive_in_progress">Please wait…</string>
+    <string name="drive_backup_ok">Backup uploaded to Google Drive</string>
+    <string name="drive_error">Google Drive error: %1$s</string>
+    <string name="drive_no_backup">No backup found on Google Drive</string>
+    <string name="drive_auth_failed">Google authorization failed or was cancelled</string>
+    <string name="drive_auth_needed_title">ConsoBox backup</string>
+    <string name="drive_auth_needed_text">The Google Drive backup needs your authorization again. Open ConsoBox &gt; Settings.</string>
+    <string name="drive_auto_failed_text">Automatic Google Drive backup failed: %1$s</string>
+    <string name="maps_missing">No map application found</string>
+</resources>
