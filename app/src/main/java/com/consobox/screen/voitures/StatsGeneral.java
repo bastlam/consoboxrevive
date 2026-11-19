@@ -107,33 +107,24 @@ public class StatsGeneral extends Activity {
     private void initDepenses() {
         TextView text = (TextView) findViewById(R.id.depenses);
         SQLiteDatabase sql = Utils.getDatabase(this);
-        Cursor c = sql.query("depenses", new String[]{"type", "prix"}, "voiture=" + this.mVoiture, null, null, null, "date ASC");
-        if (c.getCount() == 0) {
-            text.setText(getResources().getString(R.string.aucunedonnee));
-            Utils.closeDatabase(this, sql);
-            return;
-        }
+        // fuel costs only (repair / maintenance expenses are not shown any more)
+        Cursor c = sql.rawQuery("SELECT COUNT(*), TOTAL(prix) FROM depenses WHERE type=0 AND voiture=" + this.mVoiture, null);
         c.moveToFirst();
-        double essence = 0;
-        double revision = 0;
-        double reparation = 0;
-        for (int i = 0; i < c.getCount(); i++) {
-            int type = c.getInt(c.getColumnIndex("type"));
-            if (type == 0) {
-                essence += c.getDouble(c.getColumnIndex("prix"));
-            }
-            if (type >= 10) {
-                revision += c.getDouble(c.getColumnIndex("prix"));
-            }
-            if (type == 2) {
-                reparation += c.getDouble(c.getColumnIndex("prix"));
-            }
-            c.moveToNext();
-        }
+        int count = c.getInt(0);
+        double essence = c.getDouble(1);
         c.close();
         Utils.closeDatabase(this, sql);
+        if (count == 0) {
+            text.setText(getResources().getString(R.string.aucunedonnee));
+            return;
+        }
         DecimalFormat df = new DecimalFormat("#.##");
-        String styledText = String.valueOf(getResources().getString(R.string.statgeneral14)) + df.format(essence) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral15) + df.format(revision) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral16) + df.format(reparation) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral20) + getResources().getString(R.string.statgeneral17) + df.format(this.totalKm > 0 ? (essence + revision + reparation) / this.totalKm : 0) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral18) + df.format(this.totalJour > 0 ? (essence + revision + reparation) / this.totalJour : 0) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral19);
+        String unit = Utils.getDeviseUnit(this);
+        String styledText = getResources().getString(R.string.statgeneral14) + df.format(essence) + unit
+                + getResources().getString(R.string.statgeneral_fuel)
+                + getResources().getString(R.string.statgeneral17) + df.format(this.totalKm > 0 ? essence / this.totalKm : 0) + unit
+                + getResources().getString(R.string.statgeneral18) + df.format(this.totalJour > 0 ? essence / this.totalJour : 0) + unit
+                + getResources().getString(R.string.statgeneral19);
         text.setText(Html.fromHtml(styledText), TextView.BufferType.SPANNABLE);
     }
 }

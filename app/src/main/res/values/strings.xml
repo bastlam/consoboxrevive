@@ -98,8 +98,8 @@
     <string name="statgeneral15">&lt;/b> of fuel costs&lt;br/>&lt;b></string>
     <string name="statgeneral16">&lt;/b>of maintenance costs&lt;br/></string>
     <string name="statgeneral20">&lt;/b>of repair costs&lt;br/></string>
-    <string name="statgeneral17">i.e. &lt;/b></string>
-    <string name="statgeneral18">&lt;/b> by km&lt;br/>or &lt;/b></string>
+    <string name="statgeneral17">i.e. &lt;b></string>
+    <string name="statgeneral18">&lt;/b> by km&lt;br/>or &lt;b></string>
     <string name="statgeneral19">&lt;/b> by day</string>
     <string name="kilometrage">Kilometers</string>
     <string name="typedecarburant">Type of fuel</string>

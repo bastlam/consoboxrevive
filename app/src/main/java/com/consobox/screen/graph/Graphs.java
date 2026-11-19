@@ -29,7 +29,7 @@ public class Graphs extends Activity implements View.OnClickListener {
     private GraphView.GraphViewSeries[] mSeries;
     private int mVoiture;
     private boolean[] mGraphState = {true, true, true};
-    private final CharSequence[] mLegends = {"Consommation", "Prix/litre", "Dépenses"};
+    private final CharSequence[] mLegends = {"Consommation", "Prix/litre", "Carburant (€)"};
 
     @Override // android.app.Activity
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class Graphs extends Activity implements View.OnClickListener {
         SQLiteDatabase sql = Utils.getDatabase(this);
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         this.mVoiture = getIntent().getIntExtra("voiture", 0);
-        Cursor c = sql.query("conso", new String[]{"date", "km", "volume", "prix"}, "partiel='false' AND voiture=" + this.mVoiture, null, null, null, "date", null);
+        Cursor c = sql.query("conso", new String[]{"date", "km", "volume", "prix"}, Utils.SQL_PLEIN_COMPLET + " AND km>0 AND voiture=" + this.mVoiture, null, null, null, "date", null);
         c.moveToFirst();
         GraphView.GraphViewData[] datasConso = new GraphView.GraphViewData[c.getCount()];
         GraphView.GraphViewData[] datasPrix = new GraphView.GraphViewData[c.getCount()];
@@ -77,7 +77,7 @@ public class Graphs extends Activity implements View.OnClickListener {
             }
         }
         c.close();
-        Cursor c2 = sql.query("depenses", new String[]{"date", "sum(prix) as prix"}, "voiture=" + this.mVoiture, null, "date", null, "date", null);
+        Cursor c2 = sql.query("depenses", new String[]{"date", "sum(prix) as prix"}, "type=0 AND voiture=" + this.mVoiture, null, "date", null, "date", null);
         c2.moveToFirst();
         GraphView.GraphViewData[] depensesPrix = new GraphView.GraphViewData[c2.getCount()];
         if (c2.getCount() != 0) {
@@ -97,7 +97,7 @@ public class Graphs extends Activity implements View.OnClickListener {
         Utils.closeDatabase(this, sql);
         this.mSeries[0] = new GraphView.GraphViewSeries("Consommation", Integer.valueOf(Color.rgb(0xF2, 0x8C, 0x28)), datasConso);
         this.mSeries[1] = new GraphView.GraphViewSeries("Prix/litre", Integer.valueOf(Color.rgb(0x3B, 0x82, 0xF6)), datasPrix);
-        this.mSeries[2] = new GraphView.GraphViewSeries("Dépenses", Integer.valueOf(getColor(R.color.cb_primary)), depensesPrix);
+        this.mSeries[2] = new GraphView.GraphViewSeries("Carburant (€)", Integer.valueOf(getColor(R.color.cb_primary)), depensesPrix);
         this.mGraphView = new LineGraphView(this, "ConsoBox");
         this.mGraphView.addSeries(this.mSeries[0]);
         this.mGraphView.addSeries(this.mSeries[1]);

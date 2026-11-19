@@ -38,7 +38,6 @@
     <string-array name="menustats">
         <item>Global statistics</item>
         <item>Charts</item>
-        <item>Send CSV consumption via mail</item>
         <item>Export CSV consumption</item>
     </string-array>
     <string-array name="mois">

@@ -24,7 +24,6 @@
     <string-array name="menustats">
         <item>Statistiques générales</item>
         <item>Graphiques</item>
-        <item>Consommation CSV par mail</item>
         <item>Exporter la consommation en CSV</item>
     </string-array>
     <string-array name="mois">
