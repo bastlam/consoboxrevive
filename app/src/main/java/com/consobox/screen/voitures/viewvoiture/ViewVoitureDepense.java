@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /* JADX INFO: loaded from: classes.dex */
-public class ViewVoitureDepense extends LinearLayout implements OnVisible, ViewVoitureOnScrollDepenses.BackDepense, AdapterView.OnItemLongClickListener, View.OnClickListener {
+public class ViewVoitureDepense extends LinearLayout implements OnVisible, ViewVoitureOnScrollDepenses.BackDepense, AdapterView.OnItemLongClickListener {
     private int depenseMonth;
     private int depenseYear;
     private Context mContext;
@@ -43,7 +43,6 @@ public class ViewVoitureDepense extends LinearLayout implements OnVisible, ViewV
         this.mContext = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService("layout_inflater");
         inflater.inflate(R.layout.layout_viewvoituredepenses, this);
-        findViewById(R.id.view_voiture_ajouterdepense).setOnClickListener(this);
     }
 
     @Override // com.consobox.screen.voitures.Listeners.ViewVoitureOnScrollDepenses.BackDepense
@@ -206,45 +205,4 @@ public class ViewVoitureDepense extends LinearLayout implements OnVisible, ViewV
         initDepenses(false);
     }
 
-    @Override // android.view.View.OnClickListener
-    public void onClick(View v) {
-        if (v.getId() == R.id.view_voiture_ajouterdepense) {
-            Message.addDepense(this.mContext, this, this.mVoiture.km);
-            return;
-        }
-        if (v.getId() == R.id.adddepenses_ok) {
-            try {
-                if (((EditText) Message.dialogInProgress.findViewById(R.id.description)).getText().toString().equals("")) {
-                    throw new Exception();
-                }
-                addReparation(this.mVoiture.id, ((EditText) Message.dialogInProgress.findViewById(R.id.description)).getText().toString(), ((TextView) Message.dialogInProgress.findViewById(R.id.date)).getText().toString(), Double.valueOf(((EditText) Message.dialogInProgress.findViewById(R.id.prix)).getText().toString()).doubleValue(), Double.valueOf(((EditText) Message.dialogInProgress.findViewById(R.id.km)).getText().toString()).doubleValue());
-                if (Message.dialogInProgress.isShowing()) {
-                    Message.dialogInProgress.cancel();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this.mContext, this.mContext.getResources().getString(R.string.champspasrempli), 1).show();
-            }
-        } else {
-            if (v.getId() != R.id.adddepenses_annuler || !Message.dialogInProgress.isShowing()) {
-                return;
-            }
-            Message.dialogInProgress.cancel();
-        }
-    }
-
-    private void addReparation(int voiture, String description, String date, double prix, double km) {
-        ContentValues values = new ContentValues();
-        values.put("voiture", Integer.valueOf(voiture));
-        String[] time = date.split("/");
-        values.put("date", String.valueOf(time[2]) + "-" + time[1] + "-" + time[0]);
-        values.put("prix", Double.valueOf(prix));
-        values.put("description", description);
-        values.put("type", (Integer) 2);
-        values.put("km", Double.valueOf(km));
-        SQLiteDatabase sql = Utils.getDatabase(this.mContext);
-        sql.insert("depenses", "", values);
-        Utils.closeDatabase(this.mContext, sql);
-        initDepenses(false);
-    }
 }

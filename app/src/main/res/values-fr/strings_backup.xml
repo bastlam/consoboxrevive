@@ -39,4 +39,5 @@
     <string name="carburant_type">Carburant</string>
     <string name="widget_subtitle">Ajouter un plein</string>
     <string name="widget_description">Enregistrer rapidement un plein</string>
+    <string name="widget_short">Plein</string>
 </resources>

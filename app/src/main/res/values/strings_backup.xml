@@ -39,4 +39,5 @@
     <string name="carburant_type">Fuel type</string>
     <string name="widget_subtitle">Add a fill-up</string>
     <string name="widget_description">Quickly record a fill-up</string>
+    <string name="widget_short">Fill-up</string>
 </resources>
