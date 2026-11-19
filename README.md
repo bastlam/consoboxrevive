@@ -25,6 +25,14 @@ Workflow **Release APK** (`.github/workflows/release-apk.yml`), started manually
 (*Run workflow*). It builds and signs `ConsoBox-<versionName>.apk`, attaches it to the run as an artifact and,
 when *Publish a GitHub release* is ticked, creates (or updates) the release `v<versionName>` with the APK.
 
+> [!IMPORTANT]
+> **Before each new release**, bump the version in `app/build.gradle.kts` (`defaultConfig`) and commit it:
+> - `versionCode`: integer, **+1** at every release (Android refuses to install an APK whose
+>   `versionCode` is lower than the installed one);
+> - `versionName`: displayed version, e.g. `"1.22"` → `"1.23"` (also used for the APK name and the `v<versionName>` tag).
+>
+> Otherwise the workflow **overwrites the APK of the existing release** instead of creating a new one.
+
 Repository secrets to create once (*Settings > Secrets and variables > Actions*):
 
 | Secret | Value |
