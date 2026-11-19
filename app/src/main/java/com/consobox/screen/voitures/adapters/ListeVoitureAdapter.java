@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.consobox.R;
+import com.consobox.data.CarPhoto;
 import com.consobox.data.Utils;
 import com.consobox.models.Voiture;
 import java.text.DecimalFormat;
@@ -26,20 +27,6 @@ public class ListeVoitureAdapter extends BaseAdapter {
 
     public void setItems(ArrayList<Voiture> items) {
         this.mVoitures = items;
-        int i = 0;
-        for (Voiture voiture : items) {
-            try {
-                Uri uri = Uri.parse(voiture.photo);
-                if (this.mContext.getContentResolver().getType(uri) == null) {
-                    voiture.photoUri = null;
-                } else {
-                    voiture.photoUri = uri;
-                }
-            } catch (Exception e) {
-                voiture.photoUri = null;
-            }
-            i++;
-        }
     }
 
     @Override // android.widget.Adapter
@@ -75,25 +62,13 @@ public class ListeVoitureAdapter extends BaseAdapter {
         TextView conso = (TextView) v.findViewById(R.id.conso);
         TextView kmage = (TextView) v.findViewById(R.id.kmage);
         if (getItemId(id) == -1) {
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
             imageView.setImageResource(R.drawable.plus);
             nom.setText(parent.getContext().getResources().getString(R.string.ajouter));
             conso.setVisibility(View.GONE);
             kmage.setVisibility(View.GONE);
         } else {
-            try {
-                BitmapFactory.Options opts = new BitmapFactory.Options();
-                opts.inJustDecodeBounds = true;
-                BitmapFactory.decodeFile(Utils.getRealPathFromURI(this.mVoitures.get(id).photoUri, this.mContext), opts);
-                opts.inJustDecodeBounds = false;
-                if (this.mVoitures.get(id).photoUri == null || opts.outWidth > 200) {
-                    imageView.setImageResource(R.drawable.avatar_voiture);
-                } else {
-                    imageView.setImageURI(this.mVoitures.get(id).photoUri);
-                }
-            } catch (Exception e) {
-                imageView.setImageResource(R.drawable.avatar_voiture);
-                e.printStackTrace();
-            }
+            CarPhoto.show(imageView, this.mVoitures.get(id).photo, 14);
             nom.setText(this.mVoitures.get(id).nom);
             DecimalFormat df = new DecimalFormat("##.##");
             conso.setText(String.valueOf(df.format(Utils.getConsoMoyenne(this.mContext, this.mVoitures.get(id).id))) + "l/100km");

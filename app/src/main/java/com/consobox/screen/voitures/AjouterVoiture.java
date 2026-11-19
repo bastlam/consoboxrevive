@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import com.consobox.R;
+import com.consobox.data.CarPhoto;
 import com.consobox.data.Message;
 import com.consobox.data.Utils;
 
@@ -35,7 +36,7 @@ public class AjouterVoiture extends Activity implements View.OnClickListener {
         if (this.idVoiture != -1) {
             modifierVue();
         } else {
-            ((ImageButton) findViewById(R.id.ajouter_photo)).setImageResource(R.drawable.avatar_voiture);
+            showPhoto();
         }
         Spinner type = (Spinner) findViewById(R.id.ajouter_type);
         type.setAdapter((SpinnerAdapter) new ArrayAdapter(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.type_of_vehicule)));
@@ -54,18 +55,19 @@ public class AjouterVoiture extends Activity implements View.OnClickListener {
         ((EditText) findViewById(R.id.ajouter_cv)).setText(new StringBuilder().append(c.getInt(c.getColumnIndex("cv"))).toString());
         ((EditText) findViewById(R.id.ajouter_cvf)).setText(new StringBuilder().append(c.getInt(c.getColumnIndex("cvf"))).toString());
         this.photo = c.getString(c.getColumnIndex("photo"));
+        if (this.photo == null) {
+            this.photo = "";
+        }
         c.close();
         Utils.closeDatabase(this, sql);
-        Uri uri = Uri.parse(this.photo);
-        BitmapFactory.Options opts = new BitmapFactory.Options();
-        opts.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(Utils.getRealPathFromURI(uri, this), opts);
-        opts.inJustDecodeBounds = false;
-        if (getContentResolver().getType(uri) == null || opts.outWidth > 200) {
-            ((ImageButton) findViewById(R.id.ajouter_photo)).setImageResource(R.drawable.avatar_voiture);
-        } else {
-            ((ImageButton) findViewById(R.id.ajouter_photo)).setImageURI(uri);
-        }
+        showPhoto();
+    }
+
+    /** Car picture stretched over the whole square button, rounded corners like the card. */
+    private void showPhoto() {
+        ImageButton button = (ImageButton) findViewById(R.id.ajouter_photo);
+        int pad = CarPhoto.show(button, this.photo, 20) ? 0 : Utils.dipToPixel(8, this);
+        button.setPadding(pad, pad, pad, pad);
     }
 
     @Override // android.view.View.OnClickListener
@@ -126,16 +128,9 @@ public class AjouterVoiture extends Activity implements View.OnClickListener {
             if (source == null) {
                 return;
             }
-            Bitmap convertedBmp = Utils.ReduceBitmap(source);
             // stored in the app's own storage: content:// URIs from the gallery are not readable after a restart
-            java.io.File dir = new java.io.File(getFilesDir(), "photos");
-            dir.mkdirs();
-            java.io.File file = new java.io.File(dir, System.currentTimeMillis() + ".jpg");
-            try (java.io.FileOutputStream out = new java.io.FileOutputStream(file)) {
-                convertedBmp.compress(Bitmap.CompressFormat.JPEG, 90, out);
-            }
-            this.photo = Uri.fromFile(file).toString();
-            ((ImageButton) findViewById(R.id.ajouter_photo)).setImageURI(Uri.parse(this.photo));
+            this.photo = CarPhoto.save(this, source);
+            showPhoto();
         } catch (Exception e) {
             e.printStackTrace();
         }
