@@ -19,6 +19,21 @@ Signing uses `keystore.properties` + `consobox-release.jks` at the project root 
 **Keep a private copy of these two files**: every future update must be signed with the same key,
 and the Google Drive authorization is bound to its SHA-1.
 
+### Release build on GitHub Actions
+
+Workflow **Release APK** (`.github/workflows/release-apk.yml`), started manually from the *Actions* tab
+(*Run workflow*). It builds and signs `ConsoBox-<versionName>.apk`, attaches it to the run as an artifact and,
+when *Publish a GitHub release* is ticked, creates (or updates) the release `v<versionName>` with the APK.
+
+Repository secrets to create once (*Settings > Secrets and variables > Actions*):
+
+| Secret | Value |
+|---|---|
+| `KEYSTORE_BASE64` | `consobox-release.jks` encoded in base64 |
+| `KEYSTORE_PASSWORD` | `storePassword` from `keystore.properties` |
+| `KEY_ALIAS` | `keyAlias` (`consobox`) |
+| `KEY_PASSWORD` | `keyPassword` |
+
 ## What changed for modern Android
 
 | Problem in 1.20 | Fix |
