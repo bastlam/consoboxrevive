@@ -36,7 +36,7 @@ public class StatsGeneral extends Activity {
     private void initEssence() {
         TextView text = (TextView) findViewById(R.id.essence);
         SQLiteDatabase sql = Utils.getDatabase(this);
-        Cursor c = sql.query("conso", new String[]{"volume", "km"}, "partiel='false' AND voiture=" + this.mVoiture, null, null, null, "date ASC");
+        Cursor c = sql.query("conso", new String[]{"volume", "km"}, Utils.SQL_PLEIN_COMPLET + " AND km>0 AND voiture=" + this.mVoiture, null, null, null, "date ASC");
         if (c.getCount() == 0) {
             text.setText(getResources().getString(R.string.aucunedonnee));
             Utils.closeDatabase(this, sql);
@@ -114,26 +114,26 @@ public class StatsGeneral extends Activity {
             return;
         }
         c.moveToFirst();
-        int essence = 0;
-        int revision = 0;
-        int reparation = 0;
+        double essence = 0;
+        double revision = 0;
+        double reparation = 0;
         for (int i = 0; i < c.getCount(); i++) {
             int type = c.getInt(c.getColumnIndex("type"));
             if (type == 0) {
-                essence += c.getInt(c.getColumnIndex("prix"));
+                essence += c.getDouble(c.getColumnIndex("prix"));
             }
             if (type >= 10) {
-                revision += c.getInt(c.getColumnIndex("prix"));
+                revision += c.getDouble(c.getColumnIndex("prix"));
             }
             if (type == 2) {
-                reparation += c.getInt(c.getColumnIndex("prix"));
+                reparation += c.getDouble(c.getColumnIndex("prix"));
             }
             c.moveToNext();
         }
         c.close();
         Utils.closeDatabase(this, sql);
         DecimalFormat df = new DecimalFormat("#.##");
-        String styledText = String.valueOf(getResources().getString(R.string.statgeneral14)) + df.format(essence) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral15) + df.format(revision) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral16) + df.format(reparation) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral20) + getResources().getString(R.string.statgeneral17) + df.format(((double) ((essence + revision) + reparation)) / this.totalKm) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral18) + df.format(((double) ((essence + revision) + reparation)) / this.totalJour) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral19);
+        String styledText = String.valueOf(getResources().getString(R.string.statgeneral14)) + df.format(essence) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral15) + df.format(revision) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral16) + df.format(reparation) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral20) + getResources().getString(R.string.statgeneral17) + df.format(this.totalKm > 0 ? (essence + revision + reparation) / this.totalKm : 0) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral18) + df.format(this.totalJour > 0 ? (essence + revision + reparation) / this.totalJour : 0) + Utils.getDeviseUnit(this) + " " + getResources().getString(R.string.statgeneral19);
         text.setText(Html.fromHtml(styledText), TextView.BufferType.SPANNABLE);
     }
 }

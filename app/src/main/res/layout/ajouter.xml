@@ -63,11 +63,13 @@
             android:text="0"
             android:textSize="17sp" />
 
+        <!-- horsepower: only used by the removed theoretical consumption / CO2 figures -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="0dp"

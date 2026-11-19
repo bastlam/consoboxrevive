@@ -141,6 +141,7 @@ public class ListeVoiture extends Activity implements AdapterView.OnItemClickLis
                                 SQLiteDatabase sql = Utils.getDatabase(ListeVoiture.this);
                                 sql.execSQL("DELETE FROM voiture WHERE id=" + this.idVoiture);
                                 sql.execSQL("DELETE FROM conso WHERE voiture=" + this.idVoiture);
+                                sql.execSQL("DELETE FROM depenses WHERE voiture=" + this.idVoiture);
                                 Utils.closeDatabase(ListeVoiture.this, sql);
                                 ListeVoiture.this.initVoitures();
                             }

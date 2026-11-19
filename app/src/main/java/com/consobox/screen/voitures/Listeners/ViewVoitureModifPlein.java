@@ -101,8 +101,10 @@ public class ViewVoitureModifPlein extends PreferenceActivity implements Prefere
                 this.mInitPrix = val.doubleValue();
                 sql.update("depenses", values5, "type=0 AND description=" + this.mPlein, null);
             }
+            Utils.syncFuelExpenses(sql, this.mVoiture);
             Utils.closeDatabase(this, sql);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return true;
     }
@@ -121,7 +123,7 @@ public class ViewVoitureModifPlein extends PreferenceActivity implements Prefere
                 values.put("date", String.valueOf(year) + "-" + (month < 10 ? "0" : "") + month + "-" + dayOfMonth);
                 SQLiteDatabase sql = Utils.getDatabase(ViewVoitureModifPlein.this);
                 sql.update("conso", values, "voiture = " + ViewVoitureModifPlein.this.mVoiture + " AND id = " + ViewVoitureModifPlein.this.mPlein, null);
-                sql.update("depenses", values, "type=0 AND description=" + ViewVoitureModifPlein.this.mPlein, null);
+                Utils.syncFuelExpenses(sql, ViewVoitureModifPlein.this.mVoiture);
                 Utils.closeDatabase(ViewVoitureModifPlein.this, sql);
             }
         };

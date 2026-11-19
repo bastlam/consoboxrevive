@@ -64,6 +64,7 @@ public class ViewVoiturePager extends Activity implements OnDataChangeListener {
     }
 
     public void refresh() {
+        Utils.syncFuelExpenses(this, this.mVoiture.id);
         this.mVoiture.updatsValues(this);
         this.mViewVoitureConso.initConsoList(false, 0);
         this.mViewVoitureDepense.initDepenses(false);

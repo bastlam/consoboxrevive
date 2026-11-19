@@ -328,6 +328,14 @@ public class Splash extends Activity implements AdapterView.OnItemClickListener,
         } catch (SQLiteException e7) {
             sql.execSQL("ALTER TABLE depenses ADD description VARCHAR DEFAULT \"\"");
         }
+        // normalise the "partiel" flag (0/1 written by some migrations instead of false/true)
+        sql.execSQL("UPDATE conso SET partiel='true' WHERE partiel='1' OR partiel='TRUE'");
+        sql.execSQL("UPDATE conso SET partiel='false' WHERE partiel IS NULL OR partiel<>'true'");
+        Cursor cars = sql.query("voiture", new String[]{"id"}, null, null, null, null, null);
+        while (cars.moveToNext()) {
+            Utils.syncFuelExpenses(sql, cars.getInt(0));
+        }
+        cars.close();
         Utils.closeDatabase(context, sql);
     }
 

@@ -68,7 +68,7 @@ public class ViewVoitureConso extends LinearLayout implements OnVisible, ViewVoi
                     map.put("prix", "");
                     map.put("prixtotal", "");
                 }
-                if (c.getString(c.getColumnIndex("partiel")).equals("false")) {
+                if (!Utils.isPartiel(c.getString(c.getColumnIndex("partiel")))) {
                     labelconso = String.valueOf(df.format((c.getDouble(c.getColumnIndex("volume")) / c.getDouble(c.getColumnIndex("km"))) * 100.0d)) + "l/100km";
                 } else {
                     labelconso = "";
