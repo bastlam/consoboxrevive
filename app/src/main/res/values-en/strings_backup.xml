@@ -37,4 +37,12 @@
     <string name="widget_description">Quickly record a fill-up</string>
     <string name="widget_short">Fill-up</string>
     <string name="statgeneral_fuel">&lt;/b> of fuel costs&lt;br/></string>
+    <string name="graph_from">From</string>
+    <string name="graph_to">to</string>
+    <string name="graph_period">Period</string>
+    <string name="graph_curves">Curves</string>
+    <string name="graph_no_data">No data for this period</string>
+    <string name="graph_current_year">Current year</string>
+    <string name="graph_last_12_months">Last 12 months</string>
+    <string name="graph_all">Whole history</string>
 </resources>

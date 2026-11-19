@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- period selection bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cb_surface"
+        android:elevation="2dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingTop="6dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="6dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:text="@string/graph_from"
+            android:textAppearance="@style/TextAppearance.ConsoBox.Label" />
+
+        <Button
+            android:id="@+id/graph_from"
+            style="@style/Widget.ConsoBox.Chip"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/graph_to"
+            android:textAppearance="@style/TextAppearance.ConsoBox.Label" />
+
+        <Button
+            android:id="@+id/graph_to"
+            style="@style/Widget.ConsoBox.Chip"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp" />
+
+        <Button
+            android:id="@+id/graph_period"
+            style="@style/Widget.ConsoBox.Button.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginLeft="8dp"
+            android:minHeight="0dp"
+            android:text="@string/graph_period" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@id/listicon"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/graph_curves"
+            android:src="@drawable/list" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/graph_charts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="4dp" />
+
+        <TextView
+            android:id="@+id/graph_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/graph_no_data"
+            android:textAppearance="@style/TextAppearance.ConsoBox.Body"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

@@ -242,6 +242,9 @@ public class Splash extends Activity implements AdapterView.OnItemClickListener,
         } catch (SQLiteException e7) {
             sql.execSQL("ALTER TABLE depenses ADD description VARCHAR DEFAULT \"\"");
         }
+        // repair dates stored without a leading zero on the day (yyyy-MM-d) by older versions
+        sql.execSQL("UPDATE conso SET date=substr(date,1,8)||'0'||substr(date,9) WHERE length(date)=9 AND substr(date,8,1)='-'");
+        sql.execSQL("UPDATE depenses SET date=substr(date,1,8)||'0'||substr(date,9) WHERE length(date)=9 AND substr(date,8,1)='-'");
         // normalise the "partiel" flag (0/1 written by some migrations instead of false/true)
         sql.execSQL("UPDATE conso SET partiel='true' WHERE partiel='1' OR partiel='TRUE'");
         sql.execSQL("UPDATE conso SET partiel='false' WHERE partiel IS NULL OR partiel<>'true'");

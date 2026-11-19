@@ -39,6 +39,10 @@ public abstract class GraphView extends LinearLayout {
     /** Top / bottom margin of the plot (room for the title and the date labels). */
     private final float border;
     private View contentView;
+    /** Fixed X range (the selected period) used as scroll / zoom limits; data may be sparser. */
+    private boolean xBoundsSet;
+    private double xBoundMin;
+    private double xBoundMax;
     private boolean scalable;
     private ScaleGestureDetector scaleDetector;
     private boolean scrollable;
@@ -375,7 +379,7 @@ public abstract class GraphView extends LinearLayout {
         double max = getMaxX(false);
         for (int i = 0; i <= numLabels; i++) {
             long date = ((long) (this.baseDate + min + (((max - min) * ((double) i)) / ((double) numLabels)))) * 86400000;
-            Calendar c = Calendar.getInstance();
+            Calendar c = Calendar.getInstance(java.util.TimeZone.getTimeZone("UTC"));
             c.setTimeInMillis(date);
             labels[i] = String.format(java.util.Locale.FRANCE, "%02d/%02d/%02d", c.get(5), c.get(2) + 1, c.get(1) % 100);
         }
@@ -407,6 +411,9 @@ public abstract class GraphView extends LinearLayout {
     public double getMaxX(boolean ignoreViewport) {
         if (!ignoreViewport && this.viewportSize != 0.0d) {
             return this.viewportStart + this.viewportSize;
+        }
+        if (this.xBoundsSet) {
+            return this.xBoundMax;
         }
         if (this.graphSeries.size() <= 0) {
             return 0.0d;
@@ -448,6 +455,9 @@ public abstract class GraphView extends LinearLayout {
     public double getMinX(boolean ignoreViewport) {
         if (!ignoreViewport && this.viewportSize != 0.0d) {
             return this.viewportStart;
+        }
+        if (this.xBoundsSet) {
+            return this.xBoundMin;
         }
         if (this.graphSeries.size() <= 0) {
             return 0.0d;
@@ -508,6 +518,17 @@ public abstract class GraphView extends LinearLayout {
                     double diff = newSize - GraphView.this.viewportSize;
                     GraphView.this.viewportStart += diff / 2.0d;
                     GraphView.this.viewportSize -= diff;
+                    double span = GraphView.this.getMaxX(true) - GraphView.this.getMinX(true);
+                    if (span > 0 && GraphView.this.viewportSize > span) {
+                        GraphView.this.viewportSize = span;
+                        GraphView.this.viewportStart = GraphView.this.getMinX(true);
+                    }
+                    if (GraphView.this.viewportStart < GraphView.this.getMinX(true)) {
+                        GraphView.this.viewportStart = GraphView.this.getMinX(true);
+                    }
+                    if (GraphView.this.viewportStart + GraphView.this.viewportSize > GraphView.this.getMaxX(true)) {
+                        GraphView.this.viewportStart = GraphView.this.getMaxX(true) - GraphView.this.viewportSize;
+                    }
                     if (diff < 0.0d) {
                         double minX = GraphView.this.getMinX(true);
                         if (GraphView.this.viewportStart < minX) {
@@ -550,6 +571,12 @@ public abstract class GraphView extends LinearLayout {
     public void setViewPort(double start, double size) {
         this.viewportStart = start;
         this.viewportSize = size;
+    }
+
+    public void setXBounds(double min, double max) {
+        this.xBoundsSet = true;
+        this.xBoundMin = min;
+        this.xBoundMax = max;
     }
 
     public void setViewportListener(ViewportListener listener) {

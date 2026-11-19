@@ -120,7 +120,7 @@ public class ViewVoitureModifPlein extends PreferenceActivity implements Prefere
                 ViewVoitureModifPlein.this.mTime[1] = String.valueOf(month < 10 ? "0" : "") + String.valueOf(month);
                 ViewVoitureModifPlein.this.mTime[2] = String.valueOf(dayOfMonth < 10 ? "0" : "") + String.valueOf(dayOfMonth);
                 ViewVoitureModifPlein.this.mDate.setSummary(String.valueOf(ViewVoitureModifPlein.this.mTime[2]) + "/" + ViewVoitureModifPlein.this.mTime[1] + "/" + ViewVoitureModifPlein.this.mTime[0]);
-                values.put("date", String.valueOf(year) + "-" + (month < 10 ? "0" : "") + month + "-" + dayOfMonth);
+                values.put("date", String.valueOf(year) + "-" + (month < 10 ? "0" : "") + month + "-" + (dayOfMonth < 10 ? "0" : "") + dayOfMonth);
                 SQLiteDatabase sql = Utils.getDatabase(ViewVoitureModifPlein.this);
                 sql.update("conso", values, "voiture = " + ViewVoitureModifPlein.this.mVoiture + " AND id = " + ViewVoitureModifPlein.this.mPlein, null);
                 Utils.syncFuelExpenses(sql, ViewVoitureModifPlein.this.mVoiture);
