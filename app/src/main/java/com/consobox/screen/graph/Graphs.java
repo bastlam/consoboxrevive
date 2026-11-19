@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.consobox.R;
 import com.consobox.data.Message;
@@ -25,11 +26,11 @@ public class Graphs extends Activity implements View.OnClickListener {
     private static final int CONSOMMATION = 0;
     private static final int DEPENSES = 2;
     private static final int PRIX = 1;
-    private GraphView mGraphView;
+    private final GraphView[] mGraphViews = new GraphView[3];
     private GraphView.GraphViewSeries[] mSeries;
     private int mVoiture;
     private boolean[] mGraphState = {true, true, true};
-    private final CharSequence[] mLegends = {"Consommation", "Prix/litre", "Carburant (€)"};
+    private final CharSequence[] mLegends = {"Consommation (l/100 km)", "Prix au litre (€)", "Dépenses carburant (€)"};
 
     @Override // android.app.Activity
     public void onCreate(Bundle savedInstanceState) {
@@ -95,24 +96,47 @@ public class Graphs extends Activity implements View.OnClickListener {
         }
         c2.close();
         Utils.closeDatabase(this, sql);
-        this.mSeries[0] = new GraphView.GraphViewSeries("Consommation", Integer.valueOf(Color.rgb(0xF2, 0x8C, 0x28)), datasConso);
-        this.mSeries[1] = new GraphView.GraphViewSeries("Prix/litre", Integer.valueOf(Color.rgb(0x3B, 0x82, 0xF6)), datasPrix);
-        this.mSeries[2] = new GraphView.GraphViewSeries("Carburant (€)", Integer.valueOf(getColor(R.color.cb_primary)), depensesPrix);
-        this.mGraphView = new LineGraphView(this, "ConsoBox");
-        this.mGraphView.addSeries(this.mSeries[0]);
-        this.mGraphView.addSeries(this.mSeries[1]);
-        this.mGraphView.addSeries(this.mSeries[2]);
-        this.mGraphView.baseDate = timeZero;
-        this.mGraphView.setViewPort(0.0d, time - timeZero);
-        this.mGraphView.setScrollable(true);
-        this.mGraphView.setScalable(true);
-        this.mGraphView.setShowLegend(true);
-        this.mGraphView.setOnClickListener(this);
-        this.mGraphView.labelColor = getColor(R.color.cb_on_surface);
-        this.mGraphView.gridColor = getColor(R.color.cb_outline);
+        this.mSeries[0] = new GraphView.GraphViewSeries(null, Integer.valueOf(Color.rgb(0xF2, 0x8C, 0x28)), datasConso);
+        this.mSeries[1] = new GraphView.GraphViewSeries(null, Integer.valueOf(Color.rgb(0x3B, 0x82, 0xF6)), datasPrix);
+        this.mSeries[2] = new GraphView.GraphViewSeries(null, Integer.valueOf(getColor(R.color.cb_primary)), depensesPrix);
+
+        // One chart per curve, stacked: each one has its own vertical scale, so that small
+        // variations (e.g. the price per litre) stay visible. Scrolling / zooming is shared.
+        LinearLayout charts = new LinearLayout(this);
+        charts.setOrientation(LinearLayout.VERTICAL);
+        int margin = Utils.dipToPixel(4, this);
+        charts.setPadding(margin, margin, margin, margin);
+        GraphView.ViewportListener sync = (source, start, size) -> {
+            for (GraphView g : this.mGraphViews) {
+                if (g != null && g != source) {
+                    g.syncViewport(start, size);
+                }
+            }
+        };
+        for (int i = 0; i < this.mSeries.length; i++) {
+            GraphView g = new LineGraphView(this, this.mLegends[i].toString());
+            g.addSeries(this.mSeries[i]);
+            g.baseDate = timeZero;
+            g.setViewPort(0.0d, time - timeZero);
+            g.setScrollable(true);
+            g.setScalable(true);
+            g.labelColor = getColor(R.color.cb_on_surface);
+            g.gridColor = getColor(R.color.cb_outline);
+            g.setViewportListener(sync);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, 0, 1.0f);
+            lp.bottomMargin = margin;
+            g.setLayoutParams(lp);
+            this.mGraphViews[i] = g;
+            if (this.mSeries[i].isEmpty()) {
+                this.mGraphState[i] = false;
+                g.setVisibility(View.GONE);
+            }
+            charts.addView(g);
+        }
         ImageView listIcon = new ImageView(this);
         listIcon.setId(R.id.listicon);
         listIcon.setImageResource(R.drawable.list);
+        listIcon.setContentDescription("Courbes");
         RelativeLayout.LayoutParams listIconParams = new RelativeLayout.LayoutParams(-2, -2);
         listIconParams.addRule(10);
         listIconParams.addRule(11);
@@ -120,19 +144,16 @@ public class Graphs extends Activity implements View.OnClickListener {
         int pad = Utils.dipToPixel(12, this);
         listIcon.setPadding(pad, pad, pad, pad);
         listIcon.setBackgroundResource(android.R.drawable.list_selector_background);
-        layout.addView(this.mGraphView);
+        layout.addView(charts, new RelativeLayout.LayoutParams(-1, -1));
         layout.addView(listIcon, listIconParams);
         addContentView(layout, new ViewGroup.LayoutParams(-1, -1));
     }
 
     /* JADX INFO: Access modifiers changed from: private */
     public void invalidate(int position) {
-        if (this.mGraphState[position]) {
-            this.mGraphView.addSeries(this.mSeries[position]);
-        } else {
-            this.mGraphView.removeSeries(this.mSeries[position]);
+        if (this.mGraphViews[position] != null) {
+            this.mGraphViews[position].setVisibility(this.mGraphState[position] ? View.VISIBLE : View.GONE);
         }
-        this.mGraphView.invalidate();
     }
 
     @Override // android.view.View.OnClickListener
@@ -140,7 +161,7 @@ public class Graphs extends Activity implements View.OnClickListener {
         if (v.getId() == R.id.listicon) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Données à afficher");
-            builder.setMultiChoiceItems(this.mLegends, this.mGraphState, new DialogInterface.OnMultiChoiceClickListener() { // from class: com.consobox.screen.graph.Graphs.1
+            builder.setMultiChoiceItems(this.mLegends, this.mGraphState, new DialogInterface.OnMultiChoiceClickListener() {
                 @Override // android.content.DialogInterface.OnMultiChoiceClickListener
                 public void onClick(DialogInterface dialogInterface, int item, boolean state) {
                     Graphs.this.mGraphState[item] = state;

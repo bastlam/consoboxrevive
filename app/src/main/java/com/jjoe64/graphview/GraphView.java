@@ -30,6 +30,15 @@ public abstract class GraphView extends LinearLayout {
     public int labelColor = 0xFF161D1C;
     /** Colour of the grid lines. */
     public int gridColor = 0xFFBEC9C6;
+    /** Notified when the user scrolls / zooms, so that stacked charts can follow. */
+    public interface ViewportListener {
+        void onViewportChanged(GraphView source, double start, double size);
+    }
+    private ViewportListener viewportListener;
+    private final float density;
+    /** Top / bottom margin of the plot (room for the title and the date labels). */
+    private final float border;
+    private View contentView;
     private boolean scalable;
     private ScaleGestureDetector scaleDetector;
     private boolean scrollable;
@@ -107,7 +116,7 @@ public abstract class GraphView extends LinearLayout {
             double maxX = GraphView.this.getMaxX(false);
             double minX = GraphView.this.getMinX(false);
             double diffX = maxX - minX;
-            float graphheight = height - (2.0f * 20.0f);
+            float graphheight = height - (2.0f * GraphView.this.border);
             this.graphwidth = width;
             if (GraphView.this.horlabels == null) {
                 GraphView.this.horlabels = GraphView.this.generateHorlabels(this.graphwidth);
@@ -119,14 +128,14 @@ public abstract class GraphView extends LinearLayout {
             int vers = GraphView.this.verlabels.length - 1;
             for (int i = 0; i < GraphView.this.verlabels.length; i++) {
                 GraphView.this.paint.setColor(GraphView.this.gridColor);
-                float y = ((graphheight / vers) * i) + 20.0f;
+                float y = ((graphheight / vers) * i) + GraphView.this.border;
                 canvas.drawLine(0.0f, y, width, y, GraphView.this.paint);
             }
             int hors = GraphView.this.horlabels.length - 1;
             for (int i2 = 0; i2 < GraphView.this.horlabels.length; i2++) {
                 GraphView.this.paint.setColor(GraphView.this.gridColor);
                 float x = ((this.graphwidth / hors) * i2) + 0.0f;
-                canvas.drawLine(x, height - 20.0f, x, 20.0f, GraphView.this.paint);
+                canvas.drawLine(x, height - GraphView.this.border, x, GraphView.this.border, GraphView.this.paint);
                 GraphView.this.paint.setTextAlign(Paint.Align.CENTER);
                 if (i2 == GraphView.this.horlabels.length - 1) {
                     GraphView.this.paint.setTextAlign(Paint.Align.RIGHT);
@@ -138,13 +147,13 @@ public abstract class GraphView extends LinearLayout {
                 canvas.drawText(GraphView.this.horlabels[i2], x, height - 4.0f, GraphView.this.paint);
             }
             GraphView.this.paint.setTextAlign(Paint.Align.CENTER);
-            canvas.drawText(GraphView.this.title, (this.graphwidth / 2.0f) + 0.0f, 20.0f - 4.0f, GraphView.this.paint);
+            canvas.drawText(GraphView.this.title, (this.graphwidth / 2.0f) + 0.0f, GraphView.this.border - 4.0f, GraphView.this.paint);
             if (maxY != minY) {
                 GraphView.this.paint.setStrokeCap(Paint.Cap.ROUND);
-                GraphView.this.paint.setStrokeWidth(3.0f);
+                GraphView.this.paint.setStrokeWidth(2.0f * GraphView.this.density);
                 for (int i3 = 0; i3 < GraphView.this.graphSeries.size(); i3++) {
                     GraphView.this.paint.setColor(((GraphViewSeries) GraphView.this.graphSeries.get(i3)).color);
-                    GraphView.this.drawSeries(canvas, GraphView.this._values(i3), this.graphwidth, graphheight, 20.0f, minX, minY, diffX, diffY, 0.0f);
+                    GraphView.this.drawSeries(canvas, GraphView.this._values(i3), this.graphwidth, graphheight, GraphView.this.border, minX, minY, diffX, diffY, 0.0f);
                 }
                 if (GraphView.this.showLegend) {
                     GraphView.this.drawLegend(canvas, height, width);
@@ -164,7 +173,9 @@ public abstract class GraphView extends LinearLayout {
                 }
                 GraphView.this.horlabels = null;
                 GraphView.this.verlabels = null;
+                GraphView.this.numberformatter = null;
                 GraphView.this.viewVerLabels.invalidate();
+                GraphView.this.fireViewportChanged();
             }
             invalidate();
         }
@@ -220,6 +231,10 @@ public abstract class GraphView extends LinearLayout {
             this.values = values;
         }
 
+        public boolean isEmpty() {
+            return this.values == null || this.values.length == 0;
+        }
+
         public GraphViewSeries(String description, Integer color, GraphViewData[] values) {
             this.description = description;
             this.color = color == null ? -16746548 : color.intValue();
@@ -237,14 +252,14 @@ public abstract class GraphView extends LinearLayout {
         protected void onDraw(Canvas canvas) {
             GraphView.this.paint.setStrokeWidth(0.0f);
             float height = getHeight();
-            float graphheight = height - (2.0f * 20.0f);
+            float graphheight = height - (2.0f * GraphView.this.border);
             if (GraphView.this.verlabels == null) {
                 GraphView.this.verlabels = GraphView.this.generateVerlabels(graphheight);
             }
             GraphView.this.paint.setTextAlign(Paint.Align.LEFT);
             int vers = GraphView.this.verlabels.length - 1;
             for (int i = 0; i < GraphView.this.verlabels.length; i++) {
-                float y = ((graphheight / vers) * i) + 20.0f;
+                float y = ((graphheight / vers) * i) + GraphView.this.border;
                 GraphView.this.paint.setColor(GraphView.this.labelColor);
                 canvas.drawText(GraphView.this.verlabels[i], 0.0f, y, GraphView.this.paint);
             }
@@ -260,11 +275,16 @@ public abstract class GraphView extends LinearLayout {
         if (title != null) {
             this.title = title;
         }
+        this.density = context.getResources().getDisplayMetrics().density;
         this.paint = new Paint();
+        this.paint.setAntiAlias(true);
+        this.paint.setTextSize(11.0f * context.getResources().getDisplayMetrics().scaledDensity);
+        this.border = this.paint.getTextSize() * 1.6f;
         this.graphSeries = new ArrayList();
         this.viewVerLabels = new VerLabelsView(context);
         addView(this.viewVerLabels);
-        addView(new GraphViewContentView(context), new LinearLayout.LayoutParams(-1, -1, 1.0f));
+        this.contentView = new GraphViewContentView(context);
+        addView(this.contentView, new LinearLayout.LayoutParams(-1, -1, 1.0f));
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -341,24 +361,15 @@ public abstract class GraphView extends LinearLayout {
             this.numberformatter = NumberFormat.getNumberInstance();
             double highestvalue = getMaxY();
             double lowestvalue = getMinY();
-            if (highestvalue - lowestvalue < 0.1d) {
-                this.numberformatter.setMaximumFractionDigits(6);
-            } else if (highestvalue - lowestvalue < 1.0d) {
-                this.numberformatter.setMaximumFractionDigits(4);
-            } else if (highestvalue - lowestvalue < 20.0d) {
-                this.numberformatter.setMaximumFractionDigits(3);
-            } else if (highestvalue - lowestvalue < 100.0d) {
-                this.numberformatter.setMaximumFractionDigits(1);
-            } else {
-                this.numberformatter.setMaximumFractionDigits(0);
-            }
+            double diff = highestvalue - lowestvalue;
+            this.numberformatter.setMaximumFractionDigits(diff < 0.1d ? 3 : diff < 20.0d ? 2 : diff < 100.0d ? 1 : 0);
         }
         return this.numberformatter.format(value);
     }
 
     /* JADX INFO: Access modifiers changed from: private */
     public String[] generateHorlabels(float graphwidth) {
-        int numLabels = (int) (graphwidth / 150.0f);
+        int numLabels = Math.max(1, (int) (graphwidth / (90.0f * this.density)));
         String[] labels = new String[numLabels + 1];
         double min = getMinX(false);
         double max = getMaxX(false);
@@ -366,7 +377,7 @@ public abstract class GraphView extends LinearLayout {
             long date = ((long) (this.baseDate + min + (((max - min) * ((double) i)) / ((double) numLabels)))) * 86400000;
             Calendar c = Calendar.getInstance();
             c.setTimeInMillis(date);
-            labels[i] = String.valueOf(c.get(5) + 1) + "/" + (c.get(2) + 1) + "/" + c.get(1);
+            labels[i] = String.format(java.util.Locale.FRANCE, "%02d/%02d/%02d", c.get(5), c.get(2) + 1, c.get(1) % 100);
         }
         return labels;
     }
@@ -374,7 +385,7 @@ public abstract class GraphView extends LinearLayout {
     /* JADX INFO: Access modifiers changed from: private */
     public synchronized String[] generateVerlabels(float graphheight) {
         String[] labels;
-        int numLabels = (int) (graphheight / 80.0f);
+        int numLabels = Math.max(1, (int) (graphheight / (34.0f * this.density)));
         labels = new String[numLabels + 1];
         double min = getMinY();
         double max = getMaxY();
@@ -400,31 +411,37 @@ public abstract class GraphView extends LinearLayout {
         if (this.graphSeries.size() <= 0) {
             return 0.0d;
         }
-        GraphViewData[] values = this.graphSeries.get(0).values;
-        double highest = values[values.length - 1].valueX;
-        for (int i = 1; i < this.graphSeries.size(); i++) {
+        double highest = -Double.MAX_VALUE;
+        for (int i = 0; i < this.graphSeries.size(); i++) {
             GraphViewData[] values2 = this.graphSeries.get(i).values;
-            highest = Math.max(highest, values2[values2.length - 1].valueX);
+            if (values2.length > 0) {
+                highest = Math.max(highest, values2[values2.length - 1].valueX);
+            }
         }
-        return highest;
+        return highest == -Double.MAX_VALUE ? 0.0d : highest;
+    }
+
+    private double[] rawYRange() {
+        double largest = -Double.MAX_VALUE;
+        double smallest = Double.MAX_VALUE;
+        for (int i = 0; i < this.graphSeries.size(); i++) {
+            GraphViewData[] values = _values(i);
+            for (GraphViewData v : values) {
+                largest = Math.max(largest, v.valueY);
+                smallest = Math.min(smallest, v.valueY);
+            }
+        }
+        if (largest == -Double.MAX_VALUE) {
+            return new double[]{0.0d, 1.0d};
+        }
+        double diff = largest - smallest;
+        double pad = diff > 0 ? diff * 0.1d : Math.max(Math.abs(largest) * 0.05d, 0.5d);
+        return new double[]{smallest - pad, largest + pad};
     }
 
     /* JADX INFO: Access modifiers changed from: private */
     public double getMaxY() {
-        if (this.manualYAxis) {
-            double largest = this.manualMaxYValue;
-            return largest;
-        }
-        double largest2 = -2.147483648E9d;
-        for (int i = 0; i < this.graphSeries.size(); i++) {
-            GraphViewData[] values = _values(i);
-            for (int ii = 0; ii < values.length; ii++) {
-                if (values[ii].valueY > largest2) {
-                    largest2 = values[ii].valueY;
-                }
-            }
-        }
-        return largest2;
+        return this.manualYAxis ? this.manualMaxYValue : rawYRange()[1];
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -435,31 +452,19 @@ public abstract class GraphView extends LinearLayout {
         if (this.graphSeries.size() <= 0) {
             return 0.0d;
         }
-        GraphViewData[] values = this.graphSeries.get(0).values;
-        double lowest = values[0].valueX;
-        for (int i = 1; i < this.graphSeries.size(); i++) {
+        double lowest = Double.MAX_VALUE;
+        for (int i = 0; i < this.graphSeries.size(); i++) {
             GraphViewData[] values2 = this.graphSeries.get(i).values;
-            lowest = Math.min(lowest, values2[0].valueX);
+            if (values2.length > 0) {
+                lowest = Math.min(lowest, values2[0].valueX);
+            }
         }
-        return lowest;
+        return lowest == Double.MAX_VALUE ? 0.0d : lowest;
     }
 
     /* JADX INFO: Access modifiers changed from: private */
     public double getMinY() {
-        if (this.manualYAxis) {
-            double smallest = this.manualMinYValue;
-            return smallest;
-        }
-        double smallest2 = 2.147483647E9d;
-        for (int i = 0; i < this.graphSeries.size(); i++) {
-            GraphViewData[] values = _values(i);
-            for (int ii = 0; ii < values.length; ii++) {
-                if (values[ii].valueY < smallest2) {
-                    smallest2 = values[ii].valueY;
-                }
-            }
-        }
-        return smallest2;
+        return this.manualYAxis ? this.manualMinYValue : rawYRange()[0];
     }
 
     public boolean isScrollable() {
@@ -522,8 +527,8 @@ public abstract class GraphView extends LinearLayout {
                     GraphView.this.verlabels = null;
                     GraphView.this.horlabels = null;
                     GraphView.this.numberformatter = null;
-                    GraphView.this.invalidate();
-                    GraphView.this.viewVerLabels.invalidate();
+                    GraphView.this.redraw();
+                    GraphView.this.fireViewportChanged();
                     return true;
                 }
             });
@@ -545,5 +550,36 @@ public abstract class GraphView extends LinearLayout {
     public void setViewPort(double start, double size) {
         this.viewportStart = start;
         this.viewportSize = size;
+    }
+
+    public void setViewportListener(ViewportListener listener) {
+        this.viewportListener = listener;
+    }
+
+    /** Applies the viewport of another chart (no notification, avoids loops). */
+    public void syncViewport(double start, double size) {
+        if (start == this.viewportStart && size == this.viewportSize) {
+            return;
+        }
+        this.viewportStart = start;
+        this.viewportSize = size;
+        redraw();
+    }
+
+    void redraw() {
+        this.verlabels = null;
+        this.horlabels = null;
+        this.numberformatter = null;
+        this.viewVerLabels.invalidate();
+        if (this.contentView != null) {
+            this.contentView.invalidate();
+        }
+        invalidate();
+    }
+
+    void fireViewportChanged() {
+        if (this.viewportListener != null) {
+            this.viewportListener.onViewportChanged(this, this.viewportStart, this.viewportSize);
+        }
     }
 }
