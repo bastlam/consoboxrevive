@@ -35,7 +35,6 @@
     <string name="carburant_type">Fuel type</string>
     <string name="widget_subtitle">Add a fill-up</string>
     <string name="widget_description">Quickly record a fill-up</string>
-    <string name="widget_short">Fill-up</string>
     <string name="statgeneral_fuel">&lt;/b> of fuel costs&lt;br/></string>
     <string name="graph_from">From</string>
     <string name="graph_to">to</string>

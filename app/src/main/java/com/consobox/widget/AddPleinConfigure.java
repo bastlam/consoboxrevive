@@ -83,7 +83,6 @@ public class AddPleinConfigure extends ListActivity {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_addplein);
         views.setOnClickPendingIntent(R.id.addplein, pendingIntent);
-        views.setCharSequence(R.id.widgetaddplein_label, "setText", this.text);
         appWidgetManager.updateAppWidget(this.mAppWidgetId, views);
         Intent resultValue = new Intent();
         resultValue.putExtra("appWidgetId", this.mAppWidgetId);

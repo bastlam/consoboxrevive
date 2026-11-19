@@ -17,7 +17,6 @@ public class AddPleinProvider extends AppWidgetProvider {
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_addplein);
             views.setOnClickPendingIntent(R.id.addplein, pendingIntent);
-            views.setCharSequence(R.id.widgetaddplein_label, "setText", context.getString(R.string.widget_short));
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
