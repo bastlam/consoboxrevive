@@ -26,6 +26,10 @@ public abstract class GraphView extends LinearLayout {
     private boolean manualYAxis;
     private NumberFormat numberformatter;
     protected final Paint paint;
+    /** Text colour of labels and legend (follows the app theme). */
+    public int labelColor = 0xFF161D1C;
+    /** Colour of the grid lines. */
+    public int gridColor = 0xFFBEC9C6;
     private boolean scalable;
     private ScaleGestureDetector scaleDetector;
     private boolean scrollable;
@@ -114,13 +118,13 @@ public abstract class GraphView extends LinearLayout {
             GraphView.this.paint.setTextAlign(Paint.Align.LEFT);
             int vers = GraphView.this.verlabels.length - 1;
             for (int i = 0; i < GraphView.this.verlabels.length; i++) {
-                GraphView.this.paint.setColor(-12303292);
+                GraphView.this.paint.setColor(GraphView.this.gridColor);
                 float y = ((graphheight / vers) * i) + 20.0f;
                 canvas.drawLine(0.0f, y, width, y, GraphView.this.paint);
             }
             int hors = GraphView.this.horlabels.length - 1;
             for (int i2 = 0; i2 < GraphView.this.horlabels.length; i2++) {
-                GraphView.this.paint.setColor(-12303292);
+                GraphView.this.paint.setColor(GraphView.this.gridColor);
                 float x = ((this.graphwidth / hors) * i2) + 0.0f;
                 canvas.drawLine(x, height - 20.0f, x, 20.0f, GraphView.this.paint);
                 GraphView.this.paint.setTextAlign(Paint.Align.CENTER);
@@ -130,7 +134,7 @@ public abstract class GraphView extends LinearLayout {
                 if (i2 == 0) {
                     GraphView.this.paint.setTextAlign(Paint.Align.LEFT);
                 }
-                GraphView.this.paint.setColor(-1);
+                GraphView.this.paint.setColor(GraphView.this.labelColor);
                 canvas.drawText(GraphView.this.horlabels[i2], x, height - 4.0f, GraphView.this.paint);
             }
             GraphView.this.paint.setTextAlign(Paint.Align.CENTER);
@@ -241,7 +245,7 @@ public abstract class GraphView extends LinearLayout {
             int vers = GraphView.this.verlabels.length - 1;
             for (int i = 0; i < GraphView.this.verlabels.length; i++) {
                 float y = ((graphheight / vers) * i) + 20.0f;
-                GraphView.this.paint.setColor(-1);
+                GraphView.this.paint.setColor(GraphView.this.labelColor);
                 canvas.drawText(GraphView.this.verlabels[i], 0.0f, y, GraphView.this.paint);
             }
         }
@@ -325,7 +329,7 @@ public abstract class GraphView extends LinearLayout {
             this.paint.setColor(this.graphSeries.get(i).color);
             canvas.drawRect(new RectF(5.0f + lLeft, 5.0f + lTop + (i * 20), 5.0f + lLeft + 15, ((i + 1) * 20) + lTop), this.paint);
             if (this.graphSeries.get(i).description != null) {
-                this.paint.setColor(-1);
+                this.paint.setColor(this.labelColor);
                 this.paint.setTextAlign(Paint.Align.LEFT);
                 canvas.drawText(this.graphSeries.get(i).description, 5.0f + lLeft + 15 + 5.0f, 15 + lTop + (i * 20), this.paint);
             }

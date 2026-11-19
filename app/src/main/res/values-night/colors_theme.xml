@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cb_primary">#4FD8C4</color>
+    <color name="cb_on_primary">#003731</color>
+    <color name="cb_primary_container">#005047</color>
+    <color name="cb_on_primary_container">#B2F1E6</color>
+    <color name="cb_secondary_container">#2E4440</color>
+    <color name="cb_on_secondary_container">#D6E8E3</color>
+    <color name="cb_toolbar">#1A2120</color>
+    <color name="cb_on_toolbar">#DDE4E2</color>
+    <color name="cb_statusbar">#0E1514</color>
+    <color name="cb_background">#0E1514</color>
+    <color name="cb_surface">#1A2120</color>
+    <color name="cb_surface_container">#222B29</color>
+    <color name="cb_on_surface">#DDE4E2</color>
+    <color name="cb_on_surface_variant">#BEC9C6</color>
+    <color name="cb_outline">#3F4947</color>
+
+    <color name="cb_badge_brand_bg">#005047</color>
+    <color name="cb_badge_brand_fg">#B2F1E6</color>
+    <color name="cb_badge_fuel_bg">#5A4300</color>
+    <color name="cb_badge_fuel_fg">#FFE3A3</color>
+    <color name="cb_badge_repair_bg">#0842A0</color>
+    <color name="cb_badge_repair_fg">#D3E3FD</color>
+    <color name="cb_badge_tire_bg">#3C4043</color>
+    <color name="cb_badge_tire_fg">#E1E3E3</color>
+    <color name="cb_badge_misc_bg">#4A2F7F</color>
+    <color name="cb_badge_misc_fg">#EADDFF</color>
+    <color name="cb_badge_eco_bg">#0F5223</color>
+    <color name="cb_badge_eco_fg">#C4EED0</color>
+    <color name="cb_badge_alert_bg">#8C1D18</color>
+    <color name="cb_badge_alert_fg">#FFDAD6</color>
+    <color name="cb_splash_bg">#00332D</color>
+    <color name="cb_good">#6DD58C</color>
+    <color name="cb_bad">#F2B8B5</color>
+    <color name="cb_widget_bg">#F21A2120</color>
+    <color name="cb_widget_icon_bg">#5A4300</color>
+    <color name="cb_widget_icon_fg">#FFE3A3</color>
+    <color name="cb_widget_text">#DDE4E2</color>
+    <color name="cb_widget_text_secondary">#BEC9C6</color>
+</resources>

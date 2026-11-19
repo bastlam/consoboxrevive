@@ -1,6 +1,7 @@
 package com.consobox;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -38,22 +39,11 @@ public class MenuAdapter extends BaseAdapter {
     }
 
     @Override // android.widget.Adapter
-    public View getView(int arg0, View arg1, ViewGroup arg2) {
-        LinearLayout layout = new LinearLayout(this.mContext);
-        ImageView imageView = new ImageView(this.mContext);
-        layout.setLayoutParams(new AbsListView.LayoutParams(new ViewGroup.LayoutParams(-1, -2)));
-        layout.setOrientation(1);
-        layout.setGravity(17);
-        layout.setPadding(10, 10, 10, 10);
-        imageView.setLayoutParams(new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(Utils.dipToPixel(150, this.mContext), Utils.dipToPixel(150, this.mContext))));
-        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        imageView.setImageResource(this.mMenu[arg0].intValue());
-        TextView txt = new TextView(this.mContext);
-        txt.setLayoutParams(new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(-2, -2)));
-        txt.setGravity(17);
-        txt.setText(this.mLabel[arg0]);
-        layout.addView(imageView);
-        layout.addView(txt);
-        return layout;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View v = convertView != null ? convertView
+                : LayoutInflater.from(this.mContext).inflate(R.layout.item_main_menu, parent, false);
+        ((ImageView) v.findViewById(R.id.icon)).setImageResource(this.mMenu[position].intValue());
+        ((TextView) v.findViewById(R.id.nom)).setText(this.mLabel[position]);
+        return v;
     }
 }

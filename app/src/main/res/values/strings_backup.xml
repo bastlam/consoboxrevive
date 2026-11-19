@@ -34,4 +34,9 @@
     <string name="drive_auth_needed_text">The Google Drive backup needs your authorization again. Open ConsoBox &gt; Settings.</string>
     <string name="drive_auto_failed_text">Automatic Google Drive backup failed: %1$s</string>
     <string name="maps_missing">No map application found</string>
+    <string name="home_subtitle">Fuel consumption and expenses</string>
+    <string name="home_quick_access">Quick access</string>
+    <string name="carburant_type">Fuel type</string>
+    <string name="widget_subtitle">Add a fill-up</string>
+    <string name="widget_description">Quickly record a fill-up</string>
 </resources>

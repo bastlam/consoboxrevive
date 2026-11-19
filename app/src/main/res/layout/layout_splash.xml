@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:id="@id/phase_image" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/voiture" android:layout_x="30.0dp" android:layout_y="100.0dp" />
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cb_splash_bg">
+
+    <ImageView
+        android:id="@id/phase_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        android:scaleType="center"
+        android:src="@drawable/voiture" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="132dp"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.02"
+        android:text="@string/app_name"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
 </FrameLayout>

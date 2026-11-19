@@ -77,8 +77,8 @@ public class ListeVoitureAdapter extends BaseAdapter {
         if (getItemId(id) == -1) {
             imageView.setImageResource(R.drawable.plus);
             nom.setText(parent.getContext().getResources().getString(R.string.ajouter));
-            conso.setText("");
-            kmage.setText("");
+            conso.setVisibility(View.GONE);
+            kmage.setVisibility(View.GONE);
         } else {
             try {
                 BitmapFactory.Options opts = new BitmapFactory.Options();

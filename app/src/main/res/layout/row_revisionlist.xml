@@ -1,12 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="horizontal" android:paddingTop="4.0dp" android:paddingBottom="6.0dp" android:layout_width="match_parent" android:layout_height="50.0dp"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:id="@id/revisionlistrow_icon" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginRight="6.0dp" android:src="@drawable/pompe" />
-    <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="match_parent">
-        <TextView android:textStyle="bold" android:id="@id/revisionlistrow_nom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nom" />
-        <RelativeLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="match_parent">
-            <TextView android:id="@id/revisionlistrow_temps" android:paddingLeft="15.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" android:text="Temps" />
-            <TextView android:textStyle="bold" android:id="@id/revisionlistrow_average" android:paddingLeft="15.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" android:text="" android:layout_alignParentRight="true" />
-        </RelativeLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="72dp"
+    android:orientation="horizontal"
+    android:paddingLeft="16dp"
+    android:paddingTop="10dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="10dp">
+
+    <ImageView
+        android:id="@id/revisionlistrow_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="16dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/pompe" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@id/revisionlistrow_nom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.ConsoBox.Label" />
+
+        <TextView
+            android:id="@id/revisionlistrow_temps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/TextAppearance.ConsoBox.Title"
+            android:textSize="17sp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@id/revisionlistrow_average"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="15sp" />
 </LinearLayout>

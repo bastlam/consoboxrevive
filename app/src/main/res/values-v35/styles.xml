@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Keep the legacy (non edge-to-edge) layout on Android 15+. -->
-    <style name="Theme.ConsoBox.Base" parent="@android:style/Theme.Material">
+    <style name="Theme.ConsoBox" parent="@style/Theme.ConsoBox.Base">
         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
-    <style name="Theme.ConsoBox.Dialog" parent="@android:style/Theme.Material.Dialog">
+    <style name="Theme.ConsoBox.Dialog" parent="@style/Theme.ConsoBox.Dialog.Base">
         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 </resources>

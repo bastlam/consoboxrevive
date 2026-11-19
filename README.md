@@ -34,6 +34,16 @@ and the Google Drive authorization is bound to its SHA-1.
 | Edge-to-edge enforced on Android 15 | Opted out (legacy layout kept) |
 | WAL journal (Android 9+) could make raw DB copies incomplete | Checkpoint before every backup |
 
+## Modern UI (1.22)
+
+* Light / dark theme following the system setting, teal Material-style palette (`res/values*/colors_theme.xml`).
+* All the original bitmaps (including the Fotolia pictures) replaced by vector icons on tonal badges,
+  generated with the same resource names, so the Java code did not change.
+* New adaptive launcher icon (themed icon on Android 13+), splash screen, home cards, rounded dialogs,
+  floating "add" buttons, modern tabs and expense timeline.
+* Redesigned, resizable home-screen widget (tap = add a fill-up).
+* `docs/logo.svg` is the logo source; `docs/logo.png` (120×120) is the logo for the Google consent screen.
+
 ## Removed features (1.22)
 
 * **Maintenance tracking ("révisions")**: background check and reminders, "Révisions" tab of the car screen,

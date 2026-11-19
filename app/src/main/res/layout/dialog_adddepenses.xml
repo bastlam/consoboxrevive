@@ -1,23 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:paddingLeft="10.0dp" android:paddingRight="10.0dp" android:layout_width="wrap_content" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <EditText android:textSize="12.0dp" android:id="@id/description" android:layout_width="match_parent" android:layout_height="40.0dp" android:text="Description" />
-    <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dp">
-        <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
-            <TextView android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/prix" />
-            <EditText android:textSize="12.0dp" android:id="@id/prix" android:layout_width="110.0dp" android:layout_height="40.0dp" android:layout_marginRight="20.0dp" android:numeric="decimal" android:inputType="numberDecimal" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="300dp"
+    android:orientation="vertical"
+    android:paddingLeft="24dp"
+    android:paddingTop="8dp"
+    android:paddingRight="24dp"
+    android:paddingBottom="16dp">
+
+    <EditText
+        android:id="@id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
+        android:text="Description"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prix"
+                android:textAppearance="@style/TextAppearance.ConsoBox.Label" />
+
+            <EditText
+                android:id="@id/prix"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textSize="16sp" />
         </LinearLayout>
-        <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
-            <TextView android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/kmage" />
-            <EditText android:textSize="12.0dp" android:id="@id/km" android:layout_width="110.0dp" android:layout_height="40.0dp" android:layout_marginRight="20.0dp" android:numeric="decimal" android:inputType="numberDecimal" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kmage"
+                android:textAppearance="@style/TextAppearance.ConsoBox.Label" />
+
+            <EditText
+                android:id="@id/km"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dp">
-        <TextView android:layout_gravity="center_vertical" android:id="@id/date" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="21/10/10" />
-        <ImageButton android:id="@id/datebutton" android:background="@android:color/transparent" android:padding="5.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/cal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@id/datebutton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Date"
+            android:src="@drawable/cal" />
+
+        <TextView
+            android:id="@id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:textAppearance="@style/TextAppearance.ConsoBox.Title" />
     </LinearLayout>
-    <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dp">
-        <Button android:id="@id/adddepenses_ok" android:layout_width="wrap_content" android:layout_height="40.0dp" android:text="@string/ajouter" />
-        <Button android:id="@id/adddepenses_annuler" android:layout_width="wrap_content" android:layout_height="40.0dp" android:text="@string/cancel" android:layout_alignParentRight="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@id/adddepenses_annuler"
+            style="@style/Widget.ConsoBox.Button.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@id/adddepenses_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ajouter" />
     </LinearLayout>
 </LinearLayout>

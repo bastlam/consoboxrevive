@@ -158,7 +158,7 @@ public class ViewVoiturePager extends Activity implements OnDataChangeListener {
                 case 2:
                     return "Dépenses";
                 case 3:
-                    return "Statistiques";
+                    return "Stats";
                 default:
                     return "Autre";
             }

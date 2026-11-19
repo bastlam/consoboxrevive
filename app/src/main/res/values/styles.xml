@@ -1,31 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base app theme: dark Material, as the original UI was designed for a dark background. -->
-    <style name="Theme.ConsoBox.Base" parent="@android:style/Theme.Material" />
+    <!-- Platform parent: light theme here, dark theme in values-night (follows the system setting). -->
+    <style name="Theme.ConsoBox.Platform" parent="@android:style/Theme.Material.Light.DarkActionBar" />
+    <style name="Theme.ConsoBox.Platform.Dialog" parent="@android:style/Theme.Material.Light.Dialog" />
+    <style name="Theme.ConsoBox.Platform.Alert" parent="@android:style/Theme.Material.Light.Dialog.Alert" />
+
+    <style name="Theme.ConsoBox.Base" parent="@style/Theme.ConsoBox.Platform">
+        <item name="android:colorPrimary">@color/cb_toolbar</item>
+        <item name="android:colorPrimaryDark">@color/cb_statusbar</item>
+        <item name="android:colorAccent">@color/cb_primary</item>
+        <item name="android:colorBackground">@color/cb_background</item>
+        <item name="android:windowBackground">@color/cb_background</item>
+        <item name="android:colorControlActivated">@color/cb_primary</item>
+        <item name="android:textColorPrimary">@color/cb_on_surface</item>
+        <item name="android:textColorSecondary">@color/cb_on_surface_variant</item>
+        <item name="android:listDivider">@drawable/cb_divider</item>
+        <item name="android:buttonStyle">@style/Widget.ConsoBox.Button</item>
+        <item name="android:dialogTheme">@style/Theme.ConsoBox.Dialog</item>
+        <item name="android:alertDialogTheme">@style/Theme.ConsoBox.Alert</item>
+        <item name="android:actionBarStyle">@style/Widget.ConsoBox.ActionBar</item>
+    </style>
     <style name="Theme.ConsoBox" parent="@style/Theme.ConsoBox.Base" />
+
     <style name="Theme.ConsoBox.NoActionBar" parent="@style/Theme.ConsoBox">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/cb_splash_bg</item>
     </style>
-    <style name="Theme.ConsoBox.Dialog" parent="@android:style/Theme.Material.Dialog" />
+
+    <style name="Theme.ConsoBox.Dialog.Base" parent="@style/Theme.ConsoBox.Platform.Dialog">
+        <item name="android:colorAccent">@color/cb_primary</item>
+        <item name="android:colorPrimary">@color/cb_primary</item>
+        <item name="android:colorControlActivated">@color/cb_primary</item>
+        <item name="android:textColorPrimary">@color/cb_on_surface</item>
+        <item name="android:windowBackground">@drawable/cb_dialog_bg</item>
+        <item name="android:buttonStyle">@style/Widget.ConsoBox.Button</item>
+        <item name="android:alertDialogTheme">@style/Theme.ConsoBox.Alert</item>
+        <item name="android:datePickerDialogTheme">@style/Theme.ConsoBox.Alert</item>
+    </style>
+    <style name="Theme.ConsoBox.Dialog" parent="@style/Theme.ConsoBox.Dialog.Base" />
+
+    <style name="Theme.ConsoBox.Alert" parent="@style/Theme.ConsoBox.Platform.Alert">
+        <item name="android:colorAccent">@color/cb_primary</item>
+        <item name="android:colorPrimary">@color/cb_primary</item>
+        <item name="android:colorControlActivated">@color/cb_primary</item>
+        <item name="android:textColorPrimary">@color/cb_on_surface</item>
+        <item name="android:windowBackground">@drawable/cb_dialog_bg</item>
+    </style>
+
+    <style name="Widget.ConsoBox" />
+    <style name="Widget.ConsoBox.ActionBar" parent="@android:style/Widget.Material.ActionBar.Solid">
+        <item name="android:background">@color/cb_toolbar</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="Widget.ConsoBox.Button" parent="@android:style/Widget.Material.Button">
+        <item name="android:background">@drawable/cb_button_filled</item>
+        <item name="android:textColor">@color/cb_on_primary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingRight">24dp</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="Widget.ConsoBox.Button.Text">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:textColor">@color/cb_primary</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <!-- Round floating "add" button (a plain Button, as in the original code) -->
+    <style name="Widget.ConsoBox.Fab">
+        <item name="android:background">@drawable/cb_fab</item>
+        <item name="android:elevation">6dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:text">@null</item>
+    </style>
+
+    <style name="TextAppearance.ConsoBox.Title" parent="@android:style/TextAppearance.Material.Subhead">
+        <item name="android:textColor">@color/cb_on_surface</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="TextAppearance.ConsoBox.Body" parent="@android:style/TextAppearance.Material.Body1">
+        <item name="android:textColor">@color/cb_on_surface_variant</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="TextAppearance.ConsoBox.Label" parent="@android:style/TextAppearance.Material.Caption">
+        <item name="android:textColor">@color/cb_on_surface_variant</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Car screen tabs -->
     <style name="Theme.PageIndicatorDefaults" parent="@style/Theme.ConsoBox">
-                        <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
+        <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
         <item name="vpiTabTextStyle">@style/Widget.TabPageIndicator.Text</item>
     </style>
     <style name="Widget" />
     <style name="Widget.TabPageIndicator" parent="@style/Widget">
         <item name="android:gravity">center_horizontal</item>
         <item name="android:background">@drawable/vpi__tab_indicator</item>
-        <item name="android:paddingLeft">22.0dp</item>
-        <item name="android:paddingTop">12.0dp</item>
-        <item name="android:paddingRight">22.0dp</item>
-        <item name="android:paddingBottom">12.0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingBottom">14dp</item>
     </style>
     <style name="Widget.TabPageIndicator.Text" parent="@style/Widget">
         <item name="android:textAppearance">@style/TextAppearance.TabPageIndicator</item>
-        <item name="android:textSize">12.0sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/vpi__dark_theme</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/cb_tab_text</item>
         <item name="android:maxLines">1</item>
     </style>
     <style name="TextAppearance.TabPageIndicator" parent="@style/Widget" />

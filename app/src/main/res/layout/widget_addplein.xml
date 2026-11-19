@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:gravity="center" android:id="@id/addplein" android:layout_width="wrap_content" android:layout_height="58.0dp" android:src="@drawable/widget_bidon" />
-    <TextView android:textSize="14.0dp" android:textColor="#ffffff" android:gravity="center" android:id="@id/widgetaddplein_label" android:background="@drawable/corners" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/app_name" />
+<!-- The whole widget is the click target (id addplein): opens "add a fill-up". -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/addplein"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cb_widget_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <ImageView
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/cb_widget_icon" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@id/widgetaddplein_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:text="@string/app_name"
+            android:textColor="@color/cb_widget_text"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/widget_subtitle"
+            android:textColor="@color/cb_widget_text_secondary"
+            android:textSize="13sp" />
+    </LinearLayout>
 </LinearLayout>

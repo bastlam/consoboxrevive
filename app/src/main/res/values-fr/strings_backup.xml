@@ -34,4 +34,9 @@
     <string name="drive_auth_needed_text">La sauvegarde Google Drive doit être ré-autorisée. Ouvrez ConsoBox &gt; Paramètres.</string>
     <string name="drive_auto_failed_text">Échec de la sauvegarde automatique Google Drive : %1$s</string>
     <string name="maps_missing">Aucune application de cartographie trouvée</string>
+    <string name="home_subtitle">Consommation et dépenses</string>
+    <string name="home_quick_access">Accès rapide</string>
+    <string name="carburant_type">Carburant</string>
+    <string name="widget_subtitle">Ajouter un plein</string>
+    <string name="widget_description">Enregistrer rapidement un plein</string>
 </resources>

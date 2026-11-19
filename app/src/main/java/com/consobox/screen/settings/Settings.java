@@ -203,19 +203,6 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
         }
         version.setEnabled(false);
         about.addPreference(version);
-        PreferenceCategory info = new PreferenceCategory(this);
-        info.setTitle(getResources().getString(R.string.informationlicense));
-        root.addPreference(info);
-        Preference license1 = new Preference(this);
-        license1.setTitle(getResources().getString(R.string.licenseimage));
-        license1.setSummary("16844867, 14529174, 15933465, 15944792");
-        license1.setEnabled(false);
-        info.addPreference(license1);
-        Preference license2 = new Preference(this);
-        license2.setTitle(getResources().getString(R.string.nomlicense));
-        license2.setSummary("phacochere");
-        license2.setEnabled(false);
-        info.addPreference(license2);
         return root;
     }
 

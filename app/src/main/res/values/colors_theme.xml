@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ConsoBox palette (Material 3 style, light). Dark variants live in values-night. -->
+<resources>
+    <color name="cb_primary">#00796B</color>
+    <color name="cb_on_primary">#FFFFFF</color>
+    <color name="cb_primary_container">#B2F1E6</color>
+    <color name="cb_on_primary_container">#00201C</color>
+    <color name="cb_secondary_container">#D6E8E3</color>
+    <color name="cb_on_secondary_container">#112320</color>
+    <color name="cb_toolbar">#00796B</color>
+    <color name="cb_on_toolbar">#FFFFFF</color>
+    <color name="cb_statusbar">#00695C</color>
+    <color name="cb_background">#F5FBF9</color>
+    <color name="cb_surface">#FFFFFF</color>
+    <color name="cb_surface_container">#E8F0EE</color>
+    <color name="cb_on_surface">#161D1C</color>
+    <color name="cb_on_surface_variant">#3F4947</color>
+    <color name="cb_outline">#BEC9C6</color>
+
+    <!-- icon badges: container / glyph pairs -->
+    <color name="cb_badge_brand_bg">#B2F1E6</color>
+    <color name="cb_badge_brand_fg">#005047</color>
+    <color name="cb_badge_fuel_bg">#FFE3A3</color>
+    <color name="cb_badge_fuel_fg">#6B4E00</color>
+    <color name="cb_badge_repair_bg">#D3E3FD</color>
+    <color name="cb_badge_repair_fg">#0B57D0</color>
+    <color name="cb_badge_tire_bg">#E1E3E3</color>
+    <color name="cb_badge_tire_fg">#3C4043</color>
+    <color name="cb_badge_misc_bg">#EADDFF</color>
+    <color name="cb_badge_misc_fg">#5B3E96</color>
+    <color name="cb_badge_eco_bg">#C4EED0</color>
+    <color name="cb_badge_eco_fg">#0F6D2E</color>
+    <color name="cb_badge_alert_bg">#FFDAD6</color>
+    <color name="cb_badge_alert_fg">#B3261E</color>
+    <color name="cb_splash_bg">#00796B</color>
+    <color name="cb_good">#1E8E3E</color>
+    <color name="cb_bad">#D93025</color>
+    <color name="cb_widget_bg">#F2F5FBF9</color>
+    <color name="cb_widget_icon_bg">#FFE3A3</color>
+    <color name="cb_widget_icon_fg">#6B4E00</color>
+    <color name="cb_widget_text">#161D1C</color>
+    <color name="cb_widget_text_secondary">#3F4947</color>
+</resources>

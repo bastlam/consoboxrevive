@@ -43,7 +43,8 @@ public final class Notifications {
         PendingIntent pi = PendingIntent.getActivity(context, id, intent,
                 PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder b = new NotificationCompat.Builder(context, channel)
-                .setSmallIcon(R.drawable.icon)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setColor(context.getColor(R.color.cb_primary))
                 .setContentTitle(title)
                 .setContentText(text)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))

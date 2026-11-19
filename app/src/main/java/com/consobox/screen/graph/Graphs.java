@@ -95,9 +95,9 @@ public class Graphs extends Activity implements View.OnClickListener {
         }
         c2.close();
         Utils.closeDatabase(this, sql);
-        this.mSeries[0] = new GraphView.GraphViewSeries("Consommation", Integer.valueOf(Color.rgb(250, 90, 0)), datasConso);
-        this.mSeries[1] = new GraphView.GraphViewSeries("Prix/litre", Integer.valueOf(Color.rgb(0, 90, 250)), datasPrix);
-        this.mSeries[2] = new GraphView.GraphViewSeries("Dépenses", Integer.valueOf(Color.rgb(90, 250, 0)), depensesPrix);
+        this.mSeries[0] = new GraphView.GraphViewSeries("Consommation", Integer.valueOf(Color.rgb(0xF2, 0x8C, 0x28)), datasConso);
+        this.mSeries[1] = new GraphView.GraphViewSeries("Prix/litre", Integer.valueOf(Color.rgb(0x3B, 0x82, 0xF6)), datasPrix);
+        this.mSeries[2] = new GraphView.GraphViewSeries("Dépenses", Integer.valueOf(getColor(R.color.cb_primary)), depensesPrix);
         this.mGraphView = new LineGraphView(this, "ConsoBox");
         this.mGraphView.addSeries(this.mSeries[0]);
         this.mGraphView.addSeries(this.mSeries[1]);
@@ -108,6 +108,8 @@ public class Graphs extends Activity implements View.OnClickListener {
         this.mGraphView.setScalable(true);
         this.mGraphView.setShowLegend(true);
         this.mGraphView.setOnClickListener(this);
+        this.mGraphView.labelColor = getColor(R.color.cb_on_surface);
+        this.mGraphView.gridColor = getColor(R.color.cb_outline);
         ImageView listIcon = new ImageView(this);
         listIcon.setId(R.id.listicon);
         listIcon.setImageResource(R.drawable.list);
@@ -115,6 +117,9 @@ public class Graphs extends Activity implements View.OnClickListener {
         listIconParams.addRule(10);
         listIconParams.addRule(11);
         listIcon.setOnClickListener(this);
+        int pad = Utils.dipToPixel(12, this);
+        listIcon.setPadding(pad, pad, pad, pad);
+        listIcon.setBackgroundResource(android.R.drawable.list_selector_background);
         layout.addView(this.mGraphView);
         layout.addView(listIcon, listIconParams);
         addContentView(layout, new ViewGroup.LayoutParams(-1, -1));

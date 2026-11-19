@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- photo + name -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@id/ajouter_photo"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/cb_card"
+                android:contentDescription="Photo"
+                android:padding="8dp"
+                android:scaleType="fitCenter" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nomvehicule"
+                    android:textAppearance="@style/TextAppearance.ConsoBox.Label" />
+
+                <EditText
+                    android:id="@id/ajouter_nom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/kilometrage"
+            android:textAppearance="@style/TextAppearance.ConsoBox.Label" />
+
+        <EditText
+            android:id="@id/ajouter_km"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0"
+            android:textSize="17sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chevaux"
+                    android:textAppearance="@style/TextAppearance.ConsoBox.Label" />
+
+                <EditText
+                    android:id="@id/ajouter_cv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="0"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chevauxfiscaux"
+                    android:textAppearance="@style/TextAppearance.ConsoBox.Label" />
+
+                <EditText
+                    android:id="@id/ajouter_cvf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="0"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/carburant_type"
+            android:textAppearance="@style/TextAppearance.ConsoBox.Label" />
+
+        <Spinner
+            android:id="@id/ajouter_type"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+
+        <Button
+            android:id="@id/ajouter_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:minHeight="52dp"
+            android:text="@string/ajouter" />
+    </LinearLayout>
+</ScrollView>

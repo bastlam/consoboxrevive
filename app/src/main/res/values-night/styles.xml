@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.ConsoBox.Platform" parent="@android:style/Theme.Material" />
+    <style name="Theme.ConsoBox.Platform.Dialog" parent="@android:style/Theme.Material.Dialog" />
+    <style name="Theme.ConsoBox.Platform.Alert" parent="@android:style/Theme.Material.Dialog.Alert" />
+</resources>

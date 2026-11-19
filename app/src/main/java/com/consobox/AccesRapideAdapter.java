@@ -174,31 +174,11 @@ public class AccesRapideAdapter extends BaseAdapter {
     }
 
     @Override // android.widget.Adapter
-    public View getView(int arg0, View arg1, ViewGroup arg2) {
-        RelativeLayout relativeLayout = new RelativeLayout(this.mContext);
-        ImageView imageView = new ImageView(this.mContext);
-        relativeLayout.setLayoutParams(new AbsListView.LayoutParams(new ViewGroup.LayoutParams(-1, Utils.dipToPixel(25, this.mContext))));
-        relativeLayout.setGravity(16);
-        TextView txt = new TextView(this.mContext);
-        RelativeLayout.LayoutParams paramsTxt = new RelativeLayout.LayoutParams((ViewGroup.MarginLayoutParams) new RelativeLayout.LayoutParams(-2, -2));
-        paramsTxt.addRule(15, -1);
-        if (this.mId[arg0].intValue() == -1) {
-            RelativeLayout.LayoutParams paramsImage = new RelativeLayout.LayoutParams((ViewGroup.MarginLayoutParams) new RelativeLayout.LayoutParams(-1, -1));
-            paramsImage.setMargins(Utils.dipToPixel(5, this.mContext), 0, 0, 0);
-            imageView.setLayoutParams(paramsImage);
-            imageView.setScaleType(ImageView.ScaleType.FIT_START);
-            imageView.setImageResource(this.mMenu[arg0].intValue());
-            relativeLayout.addView(imageView);
-            paramsTxt.addRule(1, imageView.getId());
-            paramsTxt.setMargins(Utils.dipToPixel(35, this.mContext), 0, 0, 0);
-        } else {
-            txt.setTypeface(Typeface.DEFAULT_BOLD);
-            txt.setTextColor(-1);
-            paramsTxt.addRule(14, -1);
-        }
-        txt.setText(this.mLabel[arg0]);
-        txt.setLayoutParams(paramsTxt);
-        relativeLayout.addView(txt);
-        return relativeLayout;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View v = convertView != null ? convertView
+                : android.view.LayoutInflater.from(this.mContext).inflate(R.layout.item_quick_access, parent, false);
+        ((ImageView) v.findViewById(R.id.icon)).setImageResource(this.mMenu[position].intValue());
+        ((TextView) v.findViewById(R.id.nom)).setText(this.mLabel[position]);
+        return v;
     }
 }

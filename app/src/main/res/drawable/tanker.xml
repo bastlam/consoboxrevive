@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="40dp" android:height="40dp" android:viewportWidth="40" android:viewportHeight="40">
+    <path android:fillColor="@color/cb_badge_fuel_bg" android:pathData="M20,0a20,20 0,1 1,0 40a20,20 0,1 1,0 -40z"/>
+    <group android:translateX="8" android:translateY="8">
+        <path android:fillColor="@color/cb_badge_fuel_fg" android:pathData="M12,2c-5.33,4.55 -8,8.48 -8,11.8c0,4.98 3.8,8.2 8,8.2s8,-3.22 8,-8.2C20,10.48 17.33,6.55 12,2z"/>
+    </group>
+</vector>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#33FFFFFF">
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/cb_primary"/>
+                </shape>
+            </item>
+            <item android:drawable="@drawable/cb_ic_add" android:gravity="center" android:width="26dp" android:height="26dp"/>
+        </layer-list>
+    </item>
+</ripple>

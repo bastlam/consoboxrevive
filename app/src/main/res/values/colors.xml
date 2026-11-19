@@ -25,6 +25,6 @@
     <color name="graph_prix">#ff724109</color>
     <color name="graph_plein">#ff417209</color>
     <color name="gris">#ffaaaaaa</color>
-    <color name="bad">#dd0000</color>
-    <color name="good">#00dd00</color>
+    <color name="bad">@color/cb_bad</color>
+    <color name="good">@color/cb_good</color>
 </resources>
