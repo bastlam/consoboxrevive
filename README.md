@@ -41,6 +41,8 @@ and the Google Drive authorization is bound to its SHA-1.
   past maintenance expenses keep their label in the "Dépenses" tab.
 * **Points of interest** (garage / station / car wash search).
 * **Technical sheets** ("Fiches techniques" downloaded from olly.free.fr).
+* **Tyres** ("Pneus" tab and tyre list). The `pneu` table is kept; past tyre expenses still appear in "Dépenses".
+* Link to the original author's website in the settings.
 
 ## Backup features (Settings screen)
 

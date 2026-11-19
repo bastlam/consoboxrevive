@@ -23,7 +23,6 @@ import com.consobox.screen.voitures.viewvoiture.OnVisible;
 import com.consobox.screen.voitures.viewvoiture.ViewVoitureConso;
 import com.consobox.screen.voitures.viewvoiture.ViewVoitureContent;
 import com.consobox.screen.voitures.viewvoiture.ViewVoitureDepense;
-import com.consobox.screen.voitures.viewvoiture.ViewVoiturePneus;
 import com.consobox.screen.voitures.viewvoiture.ViewVoitureStats;
 import com.viewpagerindicator.TabPageIndicator;
 import com.viewpagerindicator.TitleProvider;
@@ -35,7 +34,6 @@ public class ViewVoiturePager extends Activity implements OnDataChangeListener {
     private ViewVoitureConso mViewVoitureConso;
     private ViewVoitureContent mViewVoitureContent;
     private ViewVoitureDepense mViewVoitureDepense;
-    private ViewVoiturePneus mViewVoiturePneus;
     private Voiture mVoiture;
 
     @Override // android.app.Activity
@@ -70,7 +68,6 @@ public class ViewVoiturePager extends Activity implements OnDataChangeListener {
         this.mViewVoitureConso.initConsoList(false, 0);
         this.mViewVoitureDepense.initDepenses(false);
         this.mViewVoitureContent.init();
-        this.mViewVoiturePneus.init();
     }
 
     @Override // android.app.Activity
@@ -92,9 +89,6 @@ public class ViewVoiturePager extends Activity implements OnDataChangeListener {
 
     @Override // android.app.Activity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PneuListActivity.GET_PNEU_ID) {
-            this.mViewVoiturePneus.onActivityResult(requestCode, resultCode, data);
-        }
         refresh();
     }
 
@@ -105,12 +99,10 @@ public class ViewVoiturePager extends Activity implements OnDataChangeListener {
             DisplayMetrics dm = new DisplayMetrics();
             ViewVoiturePager.this.getWindowManager().getDefaultDisplay().getMetrics(dm);
             ViewVoiturePager.this.mViewVoitureConso = new ViewVoitureConso(context, ViewVoiturePager.this.mVoiture, ViewVoiturePager.this);
-            ViewVoiturePager.this.mViewVoiturePneus = new ViewVoiturePneus(context, ViewVoiturePager.this.mVoiture, ViewVoiturePager.this);
             ViewVoiturePager.this.mViewVoitureDepense = new ViewVoitureDepense(context, ViewVoiturePager.this.mVoiture);
             ViewVoiturePager.this.mViewVoitureContent = new ViewVoitureContent(context, ViewVoiturePager.this.mVoiture, ViewVoiturePager.this);
             this.views.add(ViewVoiturePager.this.mViewVoitureContent);
             this.views.add(ViewVoiturePager.this.mViewVoitureConso);
-            this.views.add(ViewVoiturePager.this.mViewVoiturePneus);
             this.views.add(ViewVoiturePager.this.mViewVoitureDepense);
             this.views.add(new ViewVoitureStats(context, ViewVoiturePager.this));
         }
@@ -164,10 +156,8 @@ public class ViewVoiturePager extends Activity implements OnDataChangeListener {
                 case 1:
                     return "Consos";
                 case 2:
-                    return "Pneus";
-                case 3:
                     return "Dépenses";
-                case 4:
+                case 3:
                     return "Statistiques";
                 default:
                     return "Autre";

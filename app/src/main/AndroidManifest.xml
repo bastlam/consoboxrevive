@@ -34,7 +34,6 @@
             android:name="com.consobox.screen.voitures.ViewVoiturePager"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.PageIndicatorDefaults" />
-        <activity android:name="com.consobox.screen.voitures.PneuListActivity" />
         <activity android:name="com.consobox.screen.settings.Settings" />
         <activity android:name="com.consobox.widget.AddPleinIntent" android:theme="@style/Theme.ConsoBox.Dialog" />
         <activity android:name="com.consobox.widget.AddPleinConfigure" android:theme="@style/Theme.ConsoBox.Dialog" />

@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.consobox.R;
-import com.consobox.models.Pneu;
 import com.consobox.screen.voitures.ViewVoiturePager;
 import java.util.Calendar;
 
@@ -112,59 +111,6 @@ public class Message {
         dialog.setCancelable(true);
         ((Button) dialog.findViewById(R.id.essencebox_ok)).setOnClickListener(onClick);
         ((Button) dialog.findViewById(R.id.essencebox_annuler)).setOnClickListener(onClick);
-        dialog.show();
-    }
-
-    public static void PneuBox(Context context, View.OnClickListener onClick, String date) {
-        PneuBox(context, onClick, date, false, null);
-    }
-
-    /* JADX WARN: Type inference failed for: r2v1, types: [com.consobox.data.Message$3] */
-    public static void PneuBox(Context context, View.OnClickListener onClick, String date, boolean isEdit, Pneu pneu) {
-        Dialog dialog = new Dialog(context);
-        dialogInProgress = dialog;
-        dialog.setContentView(R.layout.dialog_editpneu);
-        ((TextView) dialog.findViewById(R.id.marque)).setSelectAllOnFocus(true);
-        ((TextView) dialog.findViewById(R.id.modele)).setSelectAllOnFocus(true);
-        ((TextView) dialog.findViewById(R.id.date)).setText(date);
-        ((TextView) dialog.findViewById(R.id.description)).setSelectAllOnFocus(true);
-        if (isEdit) {
-            ((TextView) dialog.findViewById(R.id.marque)).setText(pneu.marque);
-            ((TextView) dialog.findViewById(R.id.modele)).setText(pneu.modele);
-            ((TextView) dialog.findViewById(R.id.date)).setText(pneu.dateAchat);
-            ((TextView) dialog.findViewById(R.id.description)).setText(pneu.description);
-            ((TextView) dialog.findViewById(R.id.prix)).setText(String.valueOf(pneu.prix));
-            ((CheckBox) dialog.findViewById(R.id.hiver)).setChecked(pneu.isHiver);
-            ((Button) dialog.findViewById(R.id.ok)).setText("Modifier");
-            String date2 = pneu.dateAchat;
-        }
-        ((ImageButton) dialog.findViewById(R.id.datebutton)).setOnClickListener(new View.OnClickListener() { // from class: com.consobox.data.Message.3
-            private Context context;
-
-            public View.OnClickListener setContext(Context c) {
-                this.context = c;
-                return this;
-            }
-
-            @Override // android.view.View.OnClickListener
-            public void onClick(View arg0) {
-                DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() { // from class: com.consobox.data.Message.3.1
-                    @Override // android.app.DatePickerDialog.OnDateSetListener
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        int month = monthOfYear + 1;
-                        String txt = String.valueOf(dayOfMonth < 10 ? "0" : "") + String.valueOf(dayOfMonth) + "/" + (month < 10 ? "0" : "") + String.valueOf(month) + "/" + String.valueOf(year);
-                        ((TextView) Message.dialogInProgress.findViewById(R.id.date)).setText(txt);
-                    }
-                };
-                String[] time = ((String) ((TextView) Message.dialogInProgress.findViewById(R.id.date)).getText()).split("/");
-                new DatePickerDialog(this.context, mDateSetListener, Integer.valueOf(time[2]).intValue(), Integer.valueOf(time[1]).intValue() - 1, Integer.valueOf(time[0]).intValue()).show();
-            }
-        }.setContext(context));
-        dialog.setTitle("Ajouter un pneu");
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.setCancelable(true);
-        ((Button) dialog.findViewById(R.id.ok)).setOnClickListener(onClick);
-        ((Button) dialog.findViewById(R.id.annuler)).setOnClickListener(onClick);
         dialog.show();
     }
 

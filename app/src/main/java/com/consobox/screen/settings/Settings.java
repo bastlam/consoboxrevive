@@ -194,17 +194,6 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
         PreferenceCategory about = new PreferenceCategory(this);
         about.setTitle(getResources().getString(R.string.aproposde));
         root.addPreference(about);
-        Preference site = new Preference(this);
-        site.setTitle(getResources().getString(R.string.accessite));
-        site.setSummary("http://www.liollury.fr");
-        site.setOnPreferenceClickListener(arg0 -> {
-            try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.liollury.fr/")));
-            } catch (Exception ignored) {
-            }
-            return true;
-        });
-        about.addPreference(site);
         Preference version = new Preference(this);
         version.setTitle(getResources().getString(R.string.versionlogiciel));
         try {
