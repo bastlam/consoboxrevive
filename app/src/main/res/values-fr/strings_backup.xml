@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="notif_channel_backup">Sauvegarde Google Drive</string>
 
     <string name="local_backup_category">Sauvegarde sur l\'appareil</string>
     <string name="export_file">Exporter vers un fichier…</string>
@@ -30,9 +29,6 @@
     <string name="drive_error">Erreur Google Drive : %1$s</string>
     <string name="drive_no_backup">Aucune sauvegarde trouvée sur Google Drive</string>
     <string name="drive_auth_failed">Autorisation Google refusée ou annulée</string>
-    <string name="drive_auth_needed_title">Sauvegarde ConsoBox</string>
-    <string name="drive_auth_needed_text">La sauvegarde Google Drive doit être ré-autorisée. Ouvrez ConsoBox &gt; Paramètres.</string>
-    <string name="drive_auto_failed_text">Échec de la sauvegarde automatique Google Drive : %1$s</string>
     <string name="maps_missing">Aucune application de cartographie trouvée</string>
     <string name="home_subtitle">Consommation et dépenses</string>
     <string name="home_quick_access">Accès rapide</string>

@@ -26,8 +26,8 @@ and the Google Drive authorization is bound to its SHA-1.
 | `targetSdk` 4 → install blocked on Android 14+ | `minSdk 23`, `targetSdk 35`, `compileSdk 36` |
 | Hard-coded `/sdcard/...` paths (blocked by scoped storage) | App storage (`Android/data/com.consobox/files`) + Storage Access Framework for export / import |
 | `MODE_WORLD_WRITEABLE` preferences (crash since Android 7) | Private mode |
-| Old `Notification` API, `PendingIntent` without mutability flag | Notification channels, `NotificationCompat`, `FLAG_IMMUTABLE`, `POST_NOTIFICATIONS` runtime permission |
-| Apache `HttpClient` (removed) | `HttpURLConnection`; cleartext allowed only for `olly.free.fr` (original news server, HTTP only) |
+| `PendingIntent` without mutability flag | `FLAG_IMMUTABLE` |
+| Apache `HttpClient` (removed) | `HttpURLConnection` (Google Drive API only) |
 | Support library v4, legacy AdMob SDK, in-app billing v1 | AndroidX ViewPager; ads and billing removed |
 | Gallery photos stored as `content://` URIs (unreadable after restart) | Photos copied into the app storage |
 | Menus only reachable with the hardware Menu key | Action bar with visible actions |
@@ -53,6 +53,7 @@ and the Google Drive authorization is bound to its SHA-1.
 * **Technical sheets** ("Fiches techniques" downloaded from olly.free.fr).
 * **Tyres** ("Pneus" tab and tyre list). The `pneu` table is kept; past tyre expenses still appear in "Dépenses".
 * Link to the original author's website in the settings.
+* News pop-up downloaded at start-up from the original server, and all notifications (no notification permission requested any more).
 
 ## Backup features (Settings screen)
 
@@ -63,7 +64,7 @@ and the Google Drive authorization is bound to its SHA-1.
 * **Sauvegarde Google Drive**
   * *Compte Google* — connect / disconnect.
   * *Sauvegarde automatique mensuelle* — a daily WorkManager job (network + battery not low) uploads a backup when the
-    last successful one is one month old; a missed run is retried the next day. Notification if re-authorization is needed.
+    last successful one is one month old; a missed run is retried the next day. If Google asks for the authorization again, reconnect the account in Settings (the app sends no notifications).
   * *Sauvegarder sur Drive maintenant* / *Restaurer depuis Drive…*
   * Files go to a `ConsoBox` folder at the root of the Drive (`consobox-YYYY-MM-DD_HH-mm.bak`); the 12 most recent are kept.
   * Scope: `drive.file` only (the app can only see files it created).

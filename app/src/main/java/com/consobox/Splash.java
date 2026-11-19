@@ -11,8 +11,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,7 +25,6 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ViewFlipper;
-import com.consobox.data.Network;
 import com.consobox.data.Utils;
 import com.consobox.screen.settings.Settings;
 import com.consobox.screen.voitures.ListeVoiture;
@@ -38,52 +35,8 @@ import java.util.HashMap;
 /* JADX INFO: loaded from: classes.dex */
 public class Splash extends Activity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
     private ProgressDialog mDialog;
-    private int mIdMessage;
     private boolean mIsMenu = false;
     private boolean isUpdated = false;
-    private Handler showMessage = new Handler() { // from class: com.consobox.Splash.1
-        /* JADX WARN: Type inference failed for: r3v3, types: [com.consobox.Splash$1$1] */
-        @Override // android.os.Handler
-        public void handleMessage(Message msg) {
-            String message = msg.getData().getString("message");
-            String url = null;
-            if (message.indexOf("[url") != -1) {
-                url = message.substring(message.indexOf("[url") + 5, message.indexOf("]", message.indexOf("[url") + 5));
-                message = message.substring(message.indexOf("]") + 2, message.length());
-            }
-            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() { // from class: com.consobox.Splash.1.1
-                String mUrl;
-
-                public DialogInterface.OnClickListener setUrl(String url2) {
-                    this.mUrl = url2;
-                    return this;
-                }
-
-                @Override // android.content.DialogInterface.OnClickListener
-                public void onClick(DialogInterface dialog, int which) {
-                    SharedPreferences pref = Splash.this.getPreferences(0);
-                    pref.edit().putInt("messageVersion", Splash.this.mIdMessage).commit();
-                    if (which == -1) {
-                        dialog.cancel();
-                        return;
-                    }
-                    if (which == -2) {
-                        if (this.mUrl != null) {
-                            Intent i = new Intent("android.intent.action.VIEW");
-                            i.setData(Uri.parse(this.mUrl));
-                            Splash.this.startActivity(i);
-                            return;
-                        }
-                        dialog.cancel();
-                    }
-                }
-            }.setUrl(url);
-            try {
-                com.consobox.data.Message.CustomMessage(message, "OK", url == null ? "Annuler" : "Visiter l'URL", Splash.this, listener);
-            } catch (Exception e) {
-            }
-        }
-    };
     private Handler goToMenu = new Handler() { // from class: com.consobox.Splash.2
         @Override // android.os.Handler
         public void handleMessage(Message msg) {
@@ -99,12 +52,6 @@ public class Splash extends Activity implements AdapterView.OnItemClickListener,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_mainflipper);
-        new Thread() { // from class: com.consobox.Splash.3
-            @Override // java.lang.Thread, java.lang.Runnable
-            public void run() {
-                Splash.this.checkOnlineMessage();
-            }
-        }.start();
         SQLiteDatabase sql = Utils.getDatabase(this);
         sql.execSQL(getResources().getString(R.string.DB_CONSO));
         sql.execSQL(getResources().getString(R.string.DB_VOITURE));
@@ -114,10 +61,6 @@ public class Splash extends Activity implements AdapterView.OnItemClickListener,
         View img = findViewById(R.id.phase_image);
         cleanupRemovedFeatures();
         DriveBackup.schedule(this);
-        if (android.os.Build.VERSION.SDK_INT >= 33
-                && checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
-        }
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(display.getWidth(), display.getHeight());
         img.setLayoutParams(lp);
         GridView gridview = (GridView) findViewById(R.id.mainmenu_grid);
@@ -166,42 +109,13 @@ public class Splash extends Activity implements AdapterView.OnItemClickListener,
         super.onDestroy();
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    public void checkOnlineMessage() {
-        try {
-            ConnectivityManager connec = (ConnectivityManager) getSystemService("connectivity");
-            NetworkInfo[] ni = connec.getAllNetworkInfo();
-            for (NetworkInfo networkInfo : ni) {
-                if (networkInfo.getState() == NetworkInfo.State.CONNECTED) {
-                    String rep = Network.makeRequest("http://www.olly.free.fr/consobox/message/version.txt");
-                    if (rep.indexOf("[") != -1) {
-                        String rep2 = rep.substring(rep.indexOf("[") + 1, rep.indexOf("]") - rep.indexOf("["));
-                        SharedPreferences pref = getPreferences(0);
-                        if (pref.getInt("messageVersion", 0) < Integer.parseInt(rep2)) {
-                            this.mIdMessage = Integer.parseInt(rep2);
-                            String rep3 = Network.makeRequest("http://www.olly.free.fr/consobox/message/" + rep2 + ".txt");
-                            Message msg = new Message();
-                            Bundle data = new Bundle();
-                            data.putString("message", rep3);
-                            msg.setData(data);
-                            this.showMessage.sendMessage(msg);
-                            return;
-                        }
-                        return;
-                    }
-                    return;
-                }
-            }
-        } catch (Exception e) {
-        }
-    }
-
     /** Maintenance tracking and technical sheets were removed in 1.22: drop their leftovers. */
     private void cleanupRemovedFeatures() {
         androidx.work.WorkManager.getInstance(this).cancelUniqueWork("revision_check");
         android.app.NotificationManager nm = (android.app.NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= 26) {
             nm.deleteNotificationChannel("revision");
+            nm.deleteNotificationChannel("backup");
         }
         java.io.File dir = getExternalFilesDir(null);
         if (dir != null) {
