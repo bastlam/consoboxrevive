@@ -15,7 +15,6 @@ import com.consobox.R;
 
 /** Notification channels and helpers (channels are mandatory since Android 8). */
 public final class Notifications {
-    public static final String CHANNEL_REVISION = "revision";
     public static final String CHANNEL_BACKUP = "backup";
     public static final int ID_BACKUP = 100000;
 
@@ -27,8 +26,6 @@ public final class Notifications {
             return;
         }
         NotificationManager nm = context.getSystemService(NotificationManager.class);
-        nm.createNotificationChannel(new NotificationChannel(CHANNEL_REVISION,
-                context.getString(R.string.notif_channel_revision), NotificationManager.IMPORTANCE_DEFAULT));
         nm.createNotificationChannel(new NotificationChannel(CHANNEL_BACKUP,
                 context.getString(R.string.notif_channel_backup), NotificationManager.IMPORTANCE_LOW));
     }

@@ -29,12 +29,10 @@ import android.widget.ListAdapter;
 import android.widget.ViewFlipper;
 import com.consobox.data.Network;
 import com.consobox.data.Utils;
-import com.consobox.screen.fiches.Categories;
 import com.consobox.screen.settings.Settings;
 import com.consobox.screen.voitures.ListeVoiture;
 import com.consobox.screen.voitures.ViewVoiturePager;
 import com.consobox.drive.DriveBackup;
-import com.consobox.service.RevisionWorker;
 import java.util.HashMap;
 
 /* JADX INFO: loaded from: classes.dex */
@@ -114,7 +112,7 @@ public class Splash extends Activity implements AdapterView.OnItemClickListener,
         Utils.closeDatabase(this, sql);
         Display display = ((WindowManager) getSystemService("window")).getDefaultDisplay();
         View img = findViewById(R.id.phase_image);
-        RevisionWorker.schedule(this);
+        cleanupRemovedFeatures();
         DriveBackup.schedule(this);
         if (android.os.Build.VERSION.SDK_INT >= 33
                 && checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
@@ -195,6 +193,19 @@ public class Splash extends Activity implements AdapterView.OnItemClickListener,
                 }
             }
         } catch (Exception e) {
+        }
+    }
+
+    /** Maintenance tracking and technical sheets were removed in 1.22: drop their leftovers. */
+    private void cleanupRemovedFeatures() {
+        androidx.work.WorkManager.getInstance(this).cancelUniqueWork("revision_check");
+        android.app.NotificationManager nm = (android.app.NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= 26) {
+            nm.deleteNotificationChannel("revision");
+        }
+        java.io.File dir = getExternalFilesDir(null);
+        if (dir != null) {
+            new java.io.File(dir, "fiches.sql").delete();
         }
     }
 
@@ -337,28 +348,7 @@ public class Splash extends Activity implements AdapterView.OnItemClickListener,
         if (arg2 == 0) {
             intent2 = new Intent(this, (Class<?>) ListeVoiture.class);
         } else if (arg2 == 1) {
-            CharSequence[] items = {getResources().getString(R.string.garage), getResources().getString(R.string.station), getResources().getString(R.string.controletechnique), getResources().getString(R.string.lavage)};
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(getResources().getString(R.string.trouver));
-            builder.setItems(items, (dialog, item) -> {
-                String q = items[item].toString();
-                try {
-                    // the maps application searches around the user's current position
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + Uri.encode(q))));
-                } catch (android.content.ActivityNotFoundException e) {
-                    try {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/" + Uri.encode(q))));
-                    } catch (android.content.ActivityNotFoundException e2) {
-                        android.widget.Toast.makeText(Splash.this, R.string.maps_missing, android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-            AlertDialog alert = builder.create();
-            alert.show();
-        } else if (arg2 == 3) {
             intent2 = new Intent(this, (Class<?>) Settings.class);
-        } else if (arg2 == 2) {
-            intent2 = new Intent(this, (Class<?>) Categories.class);
         } else {
             return;
         }

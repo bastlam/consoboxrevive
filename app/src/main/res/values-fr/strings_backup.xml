@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="notif_channel_revision">Rappels de révision</string>
     <string name="notif_channel_backup">Sauvegarde Google Drive</string>
-    <string name="notif_revision_title">Rappel de révision</string>
-    <string name="notif_revision_text">Révision à effectuer sur %1$s</string>
 
     <string name="local_backup_category">Sauvegarde sur l\'appareil</string>
     <string name="export_file">Exporter vers un fichier…</string>

@@ -7,15 +7,11 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.CheckBoxPreference;
-import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
@@ -24,10 +20,8 @@ import android.text.format.DateFormat;
 import android.widget.Toast;
 import com.consobox.R;
 import com.consobox.data.BackupManager;
-import com.consobox.data.Utils;
 import com.consobox.drive.DriveBackup;
 import com.consobox.drive.DriveClient;
-import com.consobox.service.RevisionWorker;
 import com.google.android.gms.auth.api.identity.AuthorizationResult;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.common.api.ApiException;
@@ -92,55 +86,10 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
         this.mPref = getPreferenceManager().getSharedPreferences();
         PreferenceScreen root = getPreferenceManager().createPreferenceScreen(this);
 
-        // ---- Automatic maintenance check
-        PreferenceCategory service = new PreferenceCategory(this);
-        service.setTitle(getResources().getString(R.string.verifauto));
-        root.addPreference(service);
-        CheckBoxPreference active = new CheckBoxPreference(this);
-        active.setTitle(getResources().getString(R.string.activerservice));
-        active.setKey("service");
-        active.setDefaultValue(true);
-        active.setOnPreferenceChangeListener((pref, value) -> {
-            mPref.edit().putBoolean("service", (Boolean) value).commit();
-            RevisionWorker.schedule(Settings.this);
-            return true;
-        });
-        service.addPreference(active);
-        EditTextPreference delai = new EditTextPreference(this);
-        delai.setDialogTitle(getResources().getString(R.string.delaiverif));
-        try {
-            this.mPref.getLong("service_delai", RevisionWorker.DEFAULT_DELAY_MS);
-        } catch (Exception e) {
-            this.mPref.edit().putLong("service_delai", RevisionWorker.DEFAULT_DELAY_MS).commit();
-        }
-        delai.setTitle(getResources().getString(R.string.delayms));
-        delai.setSummary(String.valueOf(this.mPref.getLong("service_delai", RevisionWorker.DEFAULT_DELAY_MS)));
-        delai.setText(String.valueOf(this.mPref.getLong("service_delai", RevisionWorker.DEFAULT_DELAY_MS)));
-        delai.setPersistent(false);
-        delai.setOnPreferenceChangeListener((preference, newValue) -> {
-            long value = RevisionWorker.DEFAULT_DELAY_MS;
-            try {
-                value = Long.parseLong((String) newValue);
-            } catch (Exception ignored) {
-            }
-            preference.setSummary(String.valueOf(value));
-            mPref.edit().putLong("service_delai", value).commit();
-            RevisionWorker.schedule(Settings.this);
-            return true;
-        });
-        service.addPreference(delai);
-
-        // ---- Maintenance list / currency
+        // ---- Currency
         PreferenceCategory revision = new PreferenceCategory(this);
         revision.setTitle(getResources().getString(R.string.gestionrevision));
         root.addPreference(revision);
-        Preference gestionrev = new Preference(this);
-        gestionrev.setTitle(getResources().getString(R.string.modifierliste));
-        gestionrev.setOnPreferenceClickListener(preference -> {
-            startActivity(new Intent(Settings.this, RevisionSettings.class));
-            return true;
-        });
-        revision.addPreference(gestionrev);
         this.devise = new Preference(this);
         this.devise.setTitle(getResources().getString(R.string.devise));
         this.devise.setSummary(getResources().getStringArray(R.array.devise)[this.mPref.getInt("devise", 0)]);
@@ -265,23 +214,6 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
         }
         version.setEnabled(false);
         about.addPreference(version);
-        Preference fiches = new Preference(this);
-        fiches.setTitle(getResources().getString(R.string.versionfichetechnique));
-        try (SQLiteDatabase bdd = SQLiteDatabase.openDatabase(Utils.fichesPath(), null, SQLiteDatabase.OPEN_READONLY)) {
-            Cursor c = bdd.query("info", new String[]{"version"}, null, null, null, null, null);
-            if (c.getCount() == 0) {
-                fiches.setSummary(getResources().getString(R.string.aucunesfiches));
-            } else {
-                c.moveToFirst();
-                fiches.setSummary(c.getString(c.getColumnIndex("version")) + ".0");
-            }
-            c.close();
-        } catch (SQLiteException e3) {
-            fiches.setSummary(getResources().getString(R.string.aucunesfiches));
-        }
-        fiches.setEnabled(false);
-        about.addPreference(fiches);
-
         PreferenceCategory info = new PreferenceCategory(this);
         info.setTitle(getResources().getString(R.string.informationlicense));
         root.addPreference(info);

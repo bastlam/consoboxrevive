@@ -1,4 +1,4 @@
-# ConsoBox Revive (1.21)
+# ConsoBox Revive (1.22)
 
 Reconstruction of **ConsoBox 1.20** (`com.consobox`, no longer maintained) as an Android Studio / Gradle project,
 migrated so it installs and runs on current Android versions, plus a **Google Drive monthly backup**.
@@ -26,15 +26,21 @@ and the Google Drive authorization is bound to its SHA-1.
 | `targetSdk` 4 → install blocked on Android 14+ | `minSdk 23`, `targetSdk 35`, `compileSdk 36` |
 | Hard-coded `/sdcard/...` paths (blocked by scoped storage) | App storage (`Android/data/com.consobox/files`) + Storage Access Framework for export / import |
 | `MODE_WORLD_WRITEABLE` preferences (crash since Android 7) | Private mode |
-| Endless background `Service` + `BOOT_COMPLETED` (killed / forbidden since Android 8) | `WorkManager` periodic `RevisionWorker` |
 | Old `Notification` API, `PendingIntent` without mutability flag | Notification channels, `NotificationCompat`, `FLAG_IMMUTABLE`, `POST_NOTIFICATIONS` runtime permission |
-| Apache `HttpClient` (removed) | `HttpURLConnection`; cleartext allowed only for `olly.free.fr` (technical sheets server, still online in HTTP only) |
+| Apache `HttpClient` (removed) | `HttpURLConnection`; cleartext allowed only for `olly.free.fr` (original news server, HTTP only) |
 | Support library v4, legacy AdMob SDK, in-app billing v1 | AndroidX ViewPager; ads and billing removed |
-| GPS + hard-coded `com.google.android.maps.MapsActivity` | `geo:0,0?q=…` search intent (no location permission needed) |
 | Gallery photos stored as `content://` URIs (unreadable after restart) | Photos copied into the app storage |
 | Menus only reachable with the hardware Menu key | Action bar with visible actions |
 | Edge-to-edge enforced on Android 15 | Opted out (legacy layout kept) |
 | WAL journal (Android 9+) could make raw DB copies incomplete | Checkpoint before every backup |
+
+## Removed features (1.22)
+
+* **Maintenance tracking ("révisions")**: background check and reminders, "Révisions" tab of the car screen,
+  editable list of maintenance items. The database tables are kept, so old backups still restore and
+  past maintenance expenses keep their label in the "Dépenses" tab.
+* **Points of interest** (garage / station / car wash search).
+* **Technical sheets** ("Fiches techniques" downloaded from olly.free.fr).
 
 ## Backup features (Settings screen)
 
@@ -78,4 +84,4 @@ The new APK is signed with a different key, so it cannot update the old installa
 2. Copy `consobox.bak` to the new phone (or upload it to Drive / Downloads).
 3. In ConsoBox 1.21: *Paramètres → Restaurer depuis un fichier…* and select it.
 
-Car photos and downloaded technical sheets are not part of the database backup.
+Car photos are not part of the database backup.

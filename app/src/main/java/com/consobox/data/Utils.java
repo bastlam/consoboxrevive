@@ -31,10 +31,6 @@ public class Utils {
         return dir;
     }
 
-    public static String fichesPath() {
-        return new File(getAppDir(com.consobox.ConsoBoxApp.get()), "fiches.sql").getPath();
-    }
-
     public static File getCsvFile(Context context, int voiture) {
         return new File(getAppDir(context), "voiture" + voiture + ".csv");
     }

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="notif_channel_revision">Maintenance reminders</string>
     <string name="notif_channel_backup">Google Drive backup</string>
-    <string name="notif_revision_title">Maintenance reminder</string>
-    <string name="notif_revision_text">Maintenance due on %1$s</string>
 
     <string name="local_backup_category">Backup on this device</string>
     <string name="export_file">Export to a file…</string>

@@ -18,8 +18,8 @@ android {
         applicationId = "com.consobox"
         minSdk = 23
         targetSdk = 35
-        versionCode = 49
-        versionName = "1.21"
+        versionCode = 50
+        versionName = "1.22"
     }
 
     signingConfigs {

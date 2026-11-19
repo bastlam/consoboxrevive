@@ -34,17 +34,12 @@
             android:name="com.consobox.screen.voitures.ViewVoiturePager"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.PageIndicatorDefaults" />
-        <activity android:name="com.consobox.screen.voitures.Revision" />
         <activity android:name="com.consobox.screen.voitures.PneuListActivity" />
-        <activity android:name="com.consobox.screen.fiches.Categories" />
         <activity android:name="com.consobox.screen.settings.Settings" />
         <activity android:name="com.consobox.widget.AddPleinIntent" android:theme="@style/Theme.ConsoBox.Dialog" />
         <activity android:name="com.consobox.widget.AddPleinConfigure" android:theme="@style/Theme.ConsoBox.Dialog" />
         <activity android:name="com.consobox.screen.voitures.Listeners.ViewVoitureModifPlein" />
-        <activity android:name="com.consobox.screen.fiches.FicheView" />
         <activity android:name="com.consobox.screen.graph.Graphs" android:screenOrientation="landscape" />
-        <activity android:name="com.consobox.screen.settings.RevisionSettings" />
-        <activity android:name="com.consobox.screen.settings.ModifRevision" />
 
         <receiver
             android:name="com.consobox.widget.AddPleinProvider"

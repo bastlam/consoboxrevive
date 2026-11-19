@@ -13,15 +13,13 @@ import com.consobox.data.Utils;
 /* JADX INFO: loaded from: classes.dex */
 public class MenuAdapter extends BaseAdapter {
     private Context mContext;
-    private Integer[] mMenu = {Integer.valueOf(R.drawable.menu_car), Integer.valueOf(R.drawable.menu_map), Integer.valueOf(R.drawable.menu_tools), Integer.valueOf(R.drawable.menu_settings)};
-    private String[] mLabel = new String[4];
+    private Integer[] mMenu = {Integer.valueOf(R.drawable.menu_car), Integer.valueOf(R.drawable.menu_settings)};
+    private String[] mLabel = new String[2];
 
     public MenuAdapter(Context c) {
         this.mContext = c;
         this.mLabel[0] = c.getResources().getString(R.string.listevoiture);
-        this.mLabel[1] = c.getResources().getString(R.string.POI);
-        this.mLabel[2] = c.getResources().getString(R.string.fichetechnique);
-        this.mLabel[3] = c.getResources().getString(R.string.parametres);
+        this.mLabel[1] = c.getResources().getString(R.string.parametres);
     }
 
     @Override // android.widget.Adapter
