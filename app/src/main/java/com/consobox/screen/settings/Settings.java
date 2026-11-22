@@ -243,6 +243,52 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
                 });
     }
 
+    /** Explains a failed Google authorization, with what to check in the Google Cloud console. */
+    private void showAuthError(int code, String detail) {
+        String reason;
+        if (code == 10) {
+            reason = getString(R.string.drive_auth_error_10);
+        } else if (code == 16 || code == 12501) {
+            reason = getString(R.string.drive_auth_error_cancel);
+        } else if (code == 7) {
+            reason = getString(R.string.drive_auth_error_network);
+        } else {
+            reason = getString(R.string.drive_auth_error_other);
+        }
+        String msg = reason
+                + "\n\n" + getString(R.string.drive_auth_error_code, code < 0 ? "?" : String.valueOf(code))
+                + (detail != null && !detail.isEmpty() ? "\n" + detail : "")
+                + "\n\nPackage : " + getPackageName()
+                + "\nSHA-1 : " + signingSha1();
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.drive_auth_failed)
+                .setMessage(msg)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+    }
+
+    /** SHA-1 of the certificate this APK is signed with (must match the Android OAuth client). */
+    @SuppressWarnings("deprecation")
+    private String signingSha1() {
+        try {
+            android.content.pm.Signature[] sigs;
+            if (android.os.Build.VERSION.SDK_INT >= 28) {
+                android.content.pm.PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNING_CERTIFICATES);
+                sigs = pi.signingInfo.getApkContentsSigners();
+            } else {
+                sigs = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES).signatures;
+            }
+            byte[] d = java.security.MessageDigest.getInstance("SHA-1").digest(sigs[0].toByteArray());
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < d.length; i++) {
+                sb.append(i == 0 ? "" : ":").append(String.format(Locale.US, "%02X", d[i]));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            return "?";
+        }
+    }
+
     private void onDriveToken(String token) {
         if (token == null) {
             hideProgress();
@@ -324,15 +370,17 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQ_DRIVE_AUTH) {
-            if (resultCode != Activity.RESULT_OK || data == null) {
-                toast(getString(R.string.drive_auth_failed));
+            if (data == null) {
+                showAuthError(resultCode == Activity.RESULT_CANCELED ? 16 : -1, null);
                 return;
             }
             try {
+                // also called when resultCode != OK: the intent then carries Google's error status
                 AuthorizationResult r = Identity.getAuthorizationClient(this).getAuthorizationResultFromIntent(data);
                 onDriveToken(r.getAccessToken());
             } catch (ApiException e) {
-                toast(getString(R.string.drive_auth_failed) + " (" + e.getStatusCode() + ")");
+                android.util.Log.w("ConsoBox", "Google authorization failed", e);
+                showAuthError(e.getStatusCode(), e.getMessage());
             }
             return;
         }

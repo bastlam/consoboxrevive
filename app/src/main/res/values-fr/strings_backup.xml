@@ -44,4 +44,9 @@
     <string name="graph_current_year">Année en cours</string>
     <string name="graph_last_12_months">12 derniers mois</string>
     <string name="graph_all">Tout l\'historique</string>
+    <string name="drive_auth_error_10">Google ne reconnaît pas l\'application (DEVELOPER_ERROR). Dans la console Google Cloud, vérifiez qu\'un client OAuth de type Android existe dans le même projet que l\'écran de consentement, avec le nom de package et le SHA-1 ci-dessous, et que l\'API Google Drive est activée.</string>
+    <string name="drive_auth_error_cancel">L\'autorisation a été annulée, ou l\'écran de consentement a été fermé avant la fin.</string>
+    <string name="drive_auth_error_network">Erreur réseau : vérifiez la connexion Internet et réessayez.</string>
+    <string name="drive_auth_error_other">Google a refusé l\'autorisation.</string>
+    <string name="drive_auth_error_code">Code d\'erreur Google : %1$s</string>
 </resources>
