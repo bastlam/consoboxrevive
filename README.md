@@ -66,6 +66,9 @@ Repository secrets to create once (*Settings > Secrets and variables > Actions*)
   floating "add" buttons, modern tabs and expense timeline.
 * Redesigned, resizable home-screen widget (tap = add a fill-up).
 * `docs/logo.svg` is the logo source; `docs/logo.png` (120×120) is the logo for the Google consent screen.
+* `docs/` is the public web site (home page, privacy policy, terms of use), hosted at
+  <https://consoboxrevive.trax.ovh/> and also published by GitHub Pages. After changing it, publish it again
+  on `consoboxrevive.trax.ovh` (GitHub Pages updates itself on every push).
 
 ## Removed features (1.22)
 
@@ -102,6 +105,18 @@ signing certificate. No client ID is embedded in the app.
 3. *APIs & Services → OAuth consent screen* (Google Auth Platform):
    * User type **External**, app name "ConsoBox", your e-mail as support/developer contact.
    * Data access / scopes: add `https://www.googleapis.com/auth/drive.file` (non-sensitive scope, no Google verification).
+   * Branding (required by Google to publish, the logo triggers a brand verification):
+
+     | Field | Value |
+     |---|---|
+     | App logo | `docs/logo.png` (120×120) |
+     | Application home page | <https://consoboxrevive.trax.ovh/> |
+     | Privacy policy | <https://consoboxrevive.trax.ovh/privacy.html> |
+     | Terms of service | <https://consoboxrevive.trax.ovh/terms.html> |
+     | Authorized domains | `trax.ovh` |
+
+     The authorized domain must be verified in [Search Console](https://search.google.com/search-console)
+     by the Google account that owns the Cloud project: **Domain** property `trax.ovh`, verified with a DNS TXT record.
    * Audience: either add your Google account as **test user**, or **publish** the app (In production).
      In *Testing* mode, Google expires the authorization after 7 days, which would break the monthly backup:
      publishing is recommended (no review is needed for `drive.file`).
